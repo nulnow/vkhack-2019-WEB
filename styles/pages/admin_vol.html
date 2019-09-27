@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Админка</title>
+	<meta name="viewport" content="width=device-width,
+								   initial-scale=1.0">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app_bundle.css">
+</head>
+<body>
+
+	<!---========================== { LEFT NAV BEGIN } ===================-------->
+
+	<div class="left-nav left-nav--shown">
+		<div class="top-left-nav-wrapper">
+			<div class="museum-details">
+				<img src="/img/politeh_avatar.png" alt="">
+				<div class="museum-details__texts">
+					<h3>Музей</h3>
+					<p>Какое-то описание</p>
+				</div>
+			</div>
+		</div>
+		<ul class="left-menu">
+			<li class="left-menu-active">Волонтёры</li>
+			<li>Мероприятия</li>
+			<li>Заявки</li>
+			<li>Выход</li>
+		</ul>
+	</div>
+
+	<!---========================== { LEFT NAV END } ====================-------->
+	<div class="admin-container">
+		<h2>Волонтёры</h2>
+		<div class="user__card">
+			<div class="row txt-data">
+				<div class="col">
+					<img src="" alt="" class="user__avatar">
+					<p id="user__name">Никита Портнев, 23</p>
+				</div>
+				<div class="col">
+					<p>8 (800) 555-35-35</p>
+				</div>
+				<div class="col">
+					<p>email@gmail.com</p>
+				</div>
+				<div class="col">
+					<button class="btn">Уведомление</button>
+				</div>
+			</div>
+		</div>
+		<div class="user__card">
+			<div class="row txt-data">
+				<div class="col">
+					<img src="" alt="" class="user__avatar">
+					<p id="user__name">Никита Портнев, 23</p>
+				</div>
+				<div class="col">
+					<p>8 (800) 555-35-35</p>
+				</div>
+				<div class="col">
+					<p>email@gmail.com</p>
+				</div>
+				<div class="col">
+					<button class="btn">Уведомление</button>
+				</div>
+			</div>
+		</div>
+		<div class="user__card">
+			<div class="row txt-data">
+				<div class="col">
+					<img src="" alt="" class="user__avatar">
+					<p id="user__name">Никита Портнев, 23</p>
+				</div>
+				<div class="col">
+					<p>8 (800) 555-35-35</p>
+				</div>
+				<div class="col">
+					<p>email@gmail.com</p>
+				</div>
+				<div class="col">
+					<button class="btn">Уведомление</button>
+				</div>
+			</div>
+		</div>
+		<div class="user__card">
+			<div class="row txt-data">
+				<div class="col">
+					<img src="" alt="" class="user__avatar">
+					<p id="user__name">Никита Портнев, 23</p>
+				</div>
+				<div class="col">
+					<p>8 (800) 555-35-35</p>
+				</div>
+				<div class="col">
+					<p>email@gmail.com</p>
+				</div>
+				<div class="col">
+					<button class="btn">Уведомление</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	<button id="toggle-left-nav">
+		toggle
+	</button>
+
+	<script>
+		const leftMenu = document.querySelector('.left-nav')
+		const toggleLeftMenuButton = document.getElementById('toggle-left-nav')
+		toggleLeftMenuButton.addEventListener('click', e => {
+			leftMenu.classList.toggle('left-nav--shown')
+		})
+	</script>
+	<script src="app_bundle.js"></script>
+</body>
+</html>
