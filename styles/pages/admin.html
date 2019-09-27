@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Админка</title>
+	<meta name="viewport" content="width=device-width,
+								   initial-scale=1.0">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app_bundle.css">
+</head>
+<body>
+
+	<!---========================== { LEFT NAV BEGIN } ===================-------->
+
+	<div class="left-nav left-nav--shown">
+		<div class="top-left-nav-wrapper">
+			<div class="museum-details">
+				<img src="/img/politeh_avatar.png" width="100px" alt="">
+				<div class="museum-details__texts">
+					<h3>Музей</h3>
+					<p>Какое-то описание</p>
+				</div>
+			</div>
+		</div>
+		<ul class="left-menu">
+			<li>Волонтёры</li>
+			<li class="left-menu-active">Мероприятия</li>
+			<li>Заявки</li>
+			<li>Выход</li>
+		</ul>
+	</div>
+
+	<!---========================== { LEFT NAV END } ====================-------->
+	<div class="admin-container">
+		<h2>Новое мероприятие</h2>
+		<input type="text" class="input-txt" placeholder="Название">
+		<textarea name="" id="" cols="30" rows="3" placeholder="Короткое описание"></textarea>
+		<div class="date-container">
+			<input type="date" class="input-txt" id="date-input">
+			<input type="time" id="date-input" class="input-txt"
+				   min="00:00" max="23:00" required>
+		</div>
+		<div class="btn-container">
+			<button class="btn">Создать</button>
+		</div>
+	</div>
+
+	<button id="toggle-left-nav">
+		toggle
+	</button>
+
+	<script>
+		const leftMenu = document.querySelector('.left-nav')
+		const toggleLeftMenuButton = document.getElementById('toggle-left-nav')
+		toggleLeftMenuButton.addEventListener('click', e => {
+			leftMenu.classList.toggle('left-nav--shown')
+		})
+	</script>
+	<script src="app_bundle.js"></script>
+</body>
+</html>
