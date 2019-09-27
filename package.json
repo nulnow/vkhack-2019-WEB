@@ -4,7 +4,7 @@
   "main": "",
   "license": "MIT",
   "scripts": {
-    "start": "webpack-dev-server --config=webpack.dev.js --open --host 0.0.0.0",
+    "start": "webpack-dev-server --config=webpack.devserver.js --open --host 0.0.0.0",
     "build": "webpack --config=webpack.common.js"
   },
   "dependencies": {
