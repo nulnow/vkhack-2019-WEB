@@ -6,15 +6,38 @@ process.env.PORT=8080
 const express = require('express')
 const http = require('http')
 const socketIo = require('socket.io')
+const bodyParser = require('body-parser')
+const authenticate = require('./middlewares/authenticate')
 
-const app = express()
-const server = http.createServer(app)
-const io = socketIo(server)
+const {
+    getClient,
+} = require('./database/client')
 
-app.get('/kek', (req, res) => {
-    res.send('123')
-})
+const apiRouter = require('./routes/api')
 
-server.listen(process.env.PORT, '0.0.0.0', () => {
-    console.log('app is listening on ' + process.env.PORT + ' port')
-})
+
+getClient()
+    .then(async c => {
+        const app = express()
+        app.use(bodyParser.json())
+        app.use((req, res, next) => {
+            res.setHeader('Access-Control-Allow-Origin', '*')
+            res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, authorization')
+            next()
+        })
+        app.options('*', (req, res) => {
+            res.sendStatus(200)
+        })
+        app.use(authenticate)
+        app.use('/api', apiRouter)
+        const server = http.createServer(app)
+        const io = socketIo(server)
+
+        server.listen(process.env.PORT, '0.0.0.0', () => {
+            console.log('app is listening on ' + process.env.PORT + ' port')
+        })
+    })
+    .catch(err => {
+        console.log(err)
+    })
+
