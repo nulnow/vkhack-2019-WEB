@@ -8,6 +8,8 @@ const http = require('http')
 const socketIo = require('socket.io')
 const bodyParser = require('body-parser')
 const authenticate = require('./middlewares/authenticate')
+const STATIC_PAGES = require('./STATIC_PAGES')
+const path = require('path')
 
 const {
     getClient,
@@ -20,6 +22,10 @@ getClient()
     .then(async c => {
         const app = express()
         app.use(bodyParser.json())
+
+        app.set('view engine', 'ejs')
+        app.set('views', path.resolve(__dirname, 'views'))
+
         app.use((req, res, next) => {
             res.setHeader('Access-Control-Allow-Origin', '*')
             res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, authorization')
@@ -27,6 +33,11 @@ getClient()
         })
         app.options('*', (req, res) => {
             res.sendStatus(200)
+        })
+        ;STATIC_PAGES.forEach(route => {
+            app.get(route, (req, res) => {
+                res.render('prod.ejs', {title: 'kek'})
+            })
         })
         app.use(authenticate)
         app.use('/api', apiRouter)

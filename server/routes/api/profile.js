@@ -1,6 +1,9 @@
 const router = require('express').Router()
 const { authenticationIsRequiredAPI } = require('../../middlewares/authenticationIsRequired')
 const authenticate = require('../../middlewares/authenticate')
+const QRCode = require('qrcode')
+
+
 
 const {
     findOneInCollection,
@@ -14,7 +17,11 @@ router.get('/', async (req, res) => {
         email,
     } = req.user
     const user = await findOneInCollection('users', { email })
-    res.status(200).json(user)
+    QRCode.toDataURL(`http://176.119.159.40:8080/api/users/${user._id}`, function (err, url) {
+        user.qrcode = url
+        res.status(200).json(user)
+    })
+
 })
 
 router.post('/', async (req, res) => {
