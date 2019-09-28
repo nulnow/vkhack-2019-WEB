@@ -1,69 +1,66 @@
-import React, { useState } from 'react'
-import { NavLink  } from 'react-router-dom'
+import React, { useState, useEffect } from 'react'
+import { NavLink } from 'react-router-dom'
 import * as PAGES from '../PAGES'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { preloadUsers } from '../store/reducers/usersReducer';
 
+const mapStateToProps = state => ({
+    ...state.users
+})
 
-export default connect((state) => {
-    return ({
-        users: state.users,
-    })
-})(withRouter(({ history, users }) => {
+export default connect(mapStateToProps)(({
+    isLoading, error, users, dispatch
+}) => {
+    useEffect(() => {
+        dispatch(preloadUsers())
+    }, [])
 
-    const onLogoutClick = () => {
+    let defaultAvatar = 'https://www.allafricanhits.com/wp-content/uploads/2017/11/user-default-avatar.png'
 
-    }
-
-    return <section className="nav">
-        <div className="container">
-            <div className="row header">
-                <div className="col"></div>
-                <div className="col">
-                    <h1 className="logo">Волонтёр.рф</h1>
-                </div>
-                <div className="col avatar-container">
-                    {
-                        localStorage.token && <React.Fragment>
-                            <img src={profile.profile.avatar} className="avatar" alt={''} width="40px" height="40px" />
-                            <div className={'avatar-after'} onClick={onLogoutClick} title={'Выход'}>
-                                <i className="fas fa-sign-out-alt"/>
-                            </div>
-                        </React.Fragment>
-                    }
-                </div>
-            </div>
-            <div className="nav__fixed">
-                <div className="row menu">
-                    <div className="col">
-                        <NavLink exact className={'menu-element'} activeClassName={'menu-element active'}  to={PAGES.EVENTS_PAGE}>
-                            События
-                        </NavLink >
-                    </div>
-                    <div className="col">
-                        <NavLink exact className={'menu-element'} activeClassName={'menu-element active'}  to={'/museums'}>
-                            Музеи
-                        </NavLink >
-                    </div>
-                    <div className="col">
-                        <NavLink exact className={'menu-element'} activeClassName={'menu-element active'}  to={'/ы'}>
-                            ы
-                        </NavLink >
-                    </div>
-                    <div className="col">
-                        {
-                            localStorage.token
-                                ? <NavLink exact className={'menu-element profile'} activeClassName={'menu-element profile active'}  to={PAGES.PROFILE_PAGE}>
-                                    Профиль
-                                </NavLink >
-                                : <NavLink exact className={'menu-element'} activeClassName={'menu-element active'}  to={PAGES.LOGIN_PAGE}>
-                                    Вход
-                                </NavLink >
-                        }
-
+    return <div>
+        <div className="left-nav left-nav--shown" >
+            <div className="top-left-nav-wrapper">
+                <div className="museum-details">
+                    <img src="/img/politeh_avatar.png" alt />
+                    <div className="museum-details__texts">
+                        <h3>Музей</h3>
+                        <p>Какое-то описание</p>
                     </div>
                 </div>
             </div>
+            <ul className="left-menu">
+                <li className="left-menu-active">Волонтёры</li>
+                <li>Мероприятия</li>
+                <li>Заявки</li>
+                <li>Выход</li>
+            </ul>
         </div>
-    </section>
-}))
+        {/*-========================== { LEFT NAV END } ====================------*/}
+        <div className="admin-container">
+            <h2>Волонтёры</h2>
+            <div id="add-user"><span>+</span></div>
+            {users.map(user => {
+                return <div className="user__card">
+                <div className="row txt-data">
+                    <div className="col">
+                        <img src={user.avatar || defaultAvatar} alt className="user__avatar" />
+                        <p className="user__name">{`${user.firstName} ${user.lastName}`}</p>
+                    </div>
+                    <div className="col">
+                        <p>{user.phone}</p>
+                    </div>
+                    <div className="col">
+                        <p>{user.email}</p>
+                    </div>
+                    <div className="col">
+                        <img src="/img/ban.svg" alt className="edit__user" />
+                        <img src="/img/edit.svg" alt className="edit__user" />
+                        <button className="btn">Написать</button>
+                    </div>
+                </div>
+            </div>
+            })}
+        </div>
+    </div>
+})

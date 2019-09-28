@@ -53,6 +53,6 @@ module.exports = {
             from: path.resolve('./styles/img'),
             to: path.resolve('./server/public/img'),
         }]),
-        new WebpackNotifierPlugin(),
+        //new WebpackNotifierPlugin(),
     ],
 }

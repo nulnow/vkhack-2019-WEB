@@ -14,3 +14,6 @@ export const REGISTER_PAGE = '/register'
 export const MY_EVENTS_PAGE = '/my-events'
 
 export const ABOUT_PAGE = '/about'
+
+export const ADMIN_PAGE = '/admin'
+

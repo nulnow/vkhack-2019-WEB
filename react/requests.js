@@ -1,4 +1,4 @@
-import { EVENTS_URL, LOGIN_URL, PROFILE_URL, REGISTER_URL, LOGOUT_URL, MUSEUMS_URL } from './URLS'
+import { EVENTS_URL, USERS_URL, LOGIN_URL, PROFILE_URL, REGISTER_URL, LOGOUT_URL, MUSEUMS_URL } from './URLS'
 import { getJson, postJson } from './helpers/network'
 
 
@@ -31,6 +31,11 @@ export const getProfile = () =>
             .then(resolve)
             .catch(reject))
 
+export const getUsers = () =>
+    new Promise((resolve, reject) =>
+        getJson(USERS_URL)
+            .then(resolve)
+            .catch(reject))
 
 export const register = (model) =>
     new Promise((resolve, reject) =>
