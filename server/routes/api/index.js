@@ -9,6 +9,8 @@ const profileRouter = require('./profile')
 const authRouter = require('./auth')
 const antiCorsMiddleware = require('../../middlewares/anti-cors')
 
+const EventEmitter = require('../../general/EventEmitter')
+
 router.use(antiCorsMiddleware)
 router.use('/profile', profileRouter)
 
@@ -23,8 +25,13 @@ router.get('/users/:objectId', async (req, res) => {
 })
 
 router.get('/admin/block-user/:objectId', (req, res) => {
+
     updateOneInCollectionByObjectId('users', req.params.objectId, {isBlocked: true})
         .then(user => {
+            findOneInCollectionByObjectId('users', req.params.objectId)
+                .then(user => {
+                    EventEmitter.emit(EventEmitter.TYPES.USER_BLOCKED, user.email)
+                })
             res.sendStatus(200)
         })
         .catch(err => res.json(err))

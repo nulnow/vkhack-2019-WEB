@@ -118,7 +118,7 @@ const ProfilePage = ({
                                     <div className="col right"><p className="info__type rating">5</p></div>
                                 </div>
                                 <input type="range" disabled="true" min="0" max="20" value="5" />
-                                <img src={qrcode} alt="qrcode"/>
+                                <img className={'qrcode'} src={qrcode} alt="qrcode"/>
                             </div>
                         </div>
                     </div>
