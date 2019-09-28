@@ -5,14 +5,64 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Информация</title>
 </head>
-<body>
-    <img src="<%= user.avatar %>" alt="">
-    <h1>Статус: <%= user.isBlocked ? 'Заблокирован' : 'Не заблокирован' %></h1>
-    <%- user.isBlocked
-            ?'<div style="width: 200px; height: 200px; background-color: red;">БАН</div>'
-            : '<div style="width: 200px; height: 200px; background-color: green;">НЕ БАН</div>'
-    %>
+<body class="<%= user.isBlocked ? 'red' : 'green' %>">
+<img src="<% user.avatar %>" class="user-ava">
+<h1>Статус: <%= user.isBlocked ? 'Заблокирован' : 'Не заблокирован' %></h1>
+<style>
+
+    h1 {
+        position: relative;
+        display: inline-block;
+        margin: 0 auto;
+        top: 200px;
+        color: white;
+        font-size: 20px;
+        font-weight: 300;
+    }
+
+    .red {
+        background-color: #FF3E3E;
+    }
+
+    .green {
+        background-color: #3EFF91;
+    }
+
+    body {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+    }
+
+    @keyframes loadavatar {
+        0% {
+            transform: scale(0);
+            opacity: 0;
+        }
+
+        20% {
+            transform: scale(.5);
+            opacity: .2;
+        }
+
+        100% {
+            transform: scale(1);
+            opacity: 1;
+        }
+    }
+
+    .user-ava {
+        position: relative;
+        display: block;
+        margin: 0 auto;
+        background-color: white;
+        top: 38px;
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        animation: loadavatar ease-in-out .25s;
+    }
+</style>
 </body>
 </html>
