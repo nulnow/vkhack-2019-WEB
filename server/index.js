@@ -13,6 +13,8 @@ const path = require('path')
 const EventEmitter = require('./general/EventEmitter')
 const db = require('./database/client')
 const jwt = require('jsonwebtoken')
+const morgan = require('morgan')
+const fs = require('fs')
 
 const validateToken = (token) => new Promise((resolve, reject) => {
     jwt.verify(token, process.env.SECRET_KEY, (error, verificationResult) => {
@@ -69,6 +71,11 @@ getClient()
         app.options('*', (req, res) => {
             res.sendStatus(200)
         })
+
+        app.use(morgan('common'))
+        app.use(morgan('common', { stream: fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' }) }))
+
+
         ;STATIC_PAGES.forEach(route => {
             app.get(route, (req, res) => {
                 res.render('prod.ejs', {title: 'kek'})
