@@ -890,7 +890,33 @@ input[type="range"]::-ms-fill-upper {
     transform: scale(0.9);
 }
 
-span {
+.qr-code {
+    width: 100%;
+}
+
+.qr-container {
+    margin: 0 -38px;
+}
+
+.admin-container h2 span {
+    font-size: 18px;
+    margin-left: 38px;
+    color: rgba(0, 0, 0, .35);
+}
+
+.user__card.green {
+    background-color: rgba(62, 255, 145, .1);
+}
+
+.admin-container .input-txt {
+    position: absolute;
+    right: 100px;
+    top: 32px;
+    width: 50%;
+    height: 40px;
+}
+
+ .plus {
     position: absolute;
     font-size: 30px;
     top: 1px;
@@ -1062,8 +1088,15 @@ span {
     border-radius: 50%;
 }
 
-#verified {
+.verified {
     margin-left: 10px;
+}
+
+.top {
+    position: absolute;
+    top: 0;
+    margin-left: 10px;
+    cursor: pointer;
 }
 
 #toggle-left-nav {

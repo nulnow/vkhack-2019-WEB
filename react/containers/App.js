@@ -34,7 +34,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
 
     useEffect(() => {
         reloadProfile()
-            .then().catch()
     }, [])
     if (window.location.pathname === '/admin') {
         return <Admin />
