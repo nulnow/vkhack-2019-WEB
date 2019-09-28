@@ -4,8 +4,8 @@ import * as PAGES from '../PAGES'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { preloadUsers } from '../store/reducers/usersReducer';
-import AdminUsers from './AdminUsers'
-import AdminEvents from './AdminEvents'
+import AdminUsers from '../components/AdminPanel/AdminUsers'
+import AdminEvents from '../components/AdminPanel/AdminEvents'
 
 const mapStateToProps = state => ({
     ...state.users
@@ -14,7 +14,13 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(({
     isLoading, error, users, dispatch
 }) => {
-    const [ page, setPage ] = useState('users')
+    const [page, setPage] = useState('users')
+    const pages = [
+        { page: 'users', title: 'Волонтёры' },
+        { page: 'events', title: 'Мероприятия' },
+        { page: 'requests', title: 'Заявки' },
+    ];
+
     useEffect(() => {
         dispatch(preloadUsers())
     }, [])
@@ -33,9 +39,17 @@ export default connect(mapStateToProps)(({
                 </div>
             </div>
             <ul className="left-menu">
-                <li className="left-menu-active">Волонтёры</li>
-                <li>Мероприятия</li>
-                <li>Заявки</li>
+                {pages.map(p => (
+                    <li
+                        onClick={() => setPage(p.page)}
+                        key={p.page}
+                        className={p.page === page ? "left-menu-active" : null}
+                    >
+                        {p.title}
+                    </li>
+                )
+                )}
+                <hr />
                 <li>Выход</li>
             </ul>
         </div>
@@ -43,9 +57,9 @@ export default connect(mapStateToProps)(({
         {(() => {
             switch (page) {
                 case 'users':
-                    return <AdminUsers/>
+                    return <AdminUsers {...{ isLoading, users, error }} />
                 case 'events':
-                    return <AdminEvents/>
+                    return <AdminEvents />
             }
         })()}
     </div>

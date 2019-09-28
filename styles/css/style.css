@@ -1042,6 +1042,43 @@ input[type="range"]::-ms-fill-upper {
     border-radius: 18px;
 }
 
+.pop-up {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.send-message {
+    position: relative;
+    padding: 38px;
+    display: block;
+    width: 400px;
+    height: fit-content;
+    top: 17%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 18px;
+    animation: loadevent ease-in-out .55s;
+}
+
+.send-message h3 {
+    margin-bottom: 38px;
+}
+
+.send-message .input-txt {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 14px;
+    border: 2px solid #5F3EFF;
+}
+
+.send-message .btn {
+    position: relative;
+    width: 100%;
+}
+
 .txt-data {
     position: relative;
     display: flex;
@@ -1053,12 +1090,31 @@ input[type="range"]::-ms-fill-upper {
     text-align: center;
 }
 
+.txt-data:last-child {
+    position: relative;
+    right: 0;
+}
+
+.txt-data .col{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+
+}
+
+.txt-data:last-child {
+    display: flex;
+    justify-content: flex-end;
+}
+
 .txt-data .col p {
     white-space: nowrap;
+    overflow: hidden;
     position: relative;
     font-size: 14px;
-    top: 14px;
+    top: 16px;
     cursor: pointer;
+    text-overflow: ellipsis;
 }
 
 .txt-data .col:not(:first-child) {
@@ -1075,7 +1131,6 @@ input[type="range"]::-ms-fill-upper {
 
 .edit__user {
     position: relative;
-    top: 14px;
     margin-right: 20px;
 }
 .user__avatar {
