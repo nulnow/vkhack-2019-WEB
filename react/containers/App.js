@@ -33,10 +33,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
 
     useEffect(() => {
         reloadProfile()
-            .then(profile => {
-                if (!profile) return
-                localStorage.token && connection.emit(AUTHORIZE, { token: localStorage.token })
-            })
     }, [])
 
     return <React.Fragment>

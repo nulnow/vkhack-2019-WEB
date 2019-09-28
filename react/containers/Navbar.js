@@ -3,6 +3,8 @@ import { NavLink  } from 'react-router-dom'
 import * as PAGES from '../PAGES'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
+import { logout } from '../requests'
+import { setToken } from '../helpers/general'
 
 
 export default connect((state) => {
@@ -12,7 +14,10 @@ export default connect((state) => {
 })(withRouter(({ history, profile }) => {
 
     const onLogoutClick = () => {
-
+        logout()
+            .then(res => console.log('kekekekekekekkekekekekekeek'))
+        setToken(null)
+        history.push('/login')
     }
 
     return <section className="nav">
