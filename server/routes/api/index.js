@@ -74,7 +74,7 @@ router.get('/events', async (req, res) => {
     if (req.user) {
         const user = await db.findOneInCollection('users', { email: req.user.email })
         console.log(user)
-        const requested = user.requesteds_events_ids.map(o => o.toString())
+        const requested = user.requested_events_ids.map(o => o.toString())
         events = events.map(event => {
             console.log(event._id.toString())
             if (requested.indexOf(event._id.toString()) !== -1) {
@@ -103,11 +103,11 @@ router.get('/make-request/:objectId', authenticationIsRequiredAPI, async (req, r
     const objectId = req.params.objectId
     const user = await db.findOneInCollection('users', { email: req.user.email })
     const events = await db.findOneInCollectionByObjectId('events', objectId)
-    if (!user.requesteds_events_ids) {
-        user.requesteds_events_ids = [ objectId ]
+    if (!user.requested_events_ids) {
+        user.requested_events_ids = [ objectId ]
     } else {
-        if (user.requesteds_events_ids.indexOf(objectId) !== -1) {
-            user.requesteds_events_ids = [ ...user.requesteds_events_ids, objectId ]
+        if (user.requested_events_ids.indexOf(objectId) !== -1) {
+            user.requested_events_ids = [ ...user.requested_events_ids, objectId ]
         }
     }
     await updateOneInCollectionByObjectId('users', user._id, user)
@@ -119,18 +119,28 @@ router.get('/admin/events', async (req, res) => {
     const events = await db.listCollection('events')
 
     users.forEach(user => {
-        if (user.requesteds_events_ids && user.requesteds_events_ids.length) {
-            user.requesteds_events_ids.forEach(eventID => {
+        if (user.requested_events_ids && user.requested_events_ids.length) {
+            user.requested_events_ids.forEach(eventID => {
                 events.forEach(e => {
                     if (e._id.toString() === eventID) {
-                        e.users = [...(e.users || []), user]
+                        e.requestUserIds = [...(e.requestUserIds || []), user]
+                    }
+                })
+            })
+        }
+
+        if (user.accepted_requested_events_ids && user.accepted_requested_events_ids.length) {
+            user.accepted_requested_events_ids.forEach(eventID => {
+                events.forEach(e => {
+                    if (e._id.toString() === eventID) {
+                        e.userIds = [...(e.userIds || []), user]
                     }
                 })
             })
         }
     })
 
-    res.json(events.filter(event => event.users && event.users.length))
+    res.json(events)
 })
 
 router.post('/admin/accept-user', async (req, res) => {
@@ -149,7 +159,7 @@ router.post('/admin/accept-user', async (req, res) => {
     if (!user || !event) {
         return res.status(400).json({message: '!user || !event'})
     } else {
-        user.requesteds_events_ids = (user.requesteds_events_ids || [])
+        user.requested_events_ids = (user.requested_events_ids || [])
             .filter(eventIdFromUser => {
                 return eventIdFromUser.toString() !== eventId.toString()
             })
@@ -179,7 +189,7 @@ router.post('/admin/reject-user', async (req, res) => {
     if (!user || !event) {
         return res.status(400).json({message: '!user || !event'})
     } else {
-        user.requesteds_events_ids = (user.requesteds_events_ids || [])
+        user.requested_events_ids = (user.requested_events_ids || [])
             .filter(eventIdFromUser => {
                 return eventIdFromUser.toString() !== eventId.toString()
             })
@@ -193,6 +203,30 @@ router.post('/admin/reject-user', async (req, res) => {
 
         // EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, (user.email, '')
     }
+})
+
+router.get('/d', async (req, res) => {
+    for(let i = 0; i < 37; i++) {
+        db.deleteOneInCollection('events', {})
+    }
+})
+
+router.get('/i', async (req, res) => {
+
+    let events = []
+
+    for(let i = 0; i<7; i++) {
+        events.push({
+            title: '"Оборотни" микромира', //required
+            date: new Date().getTime(), //required
+            description: 'На лекции расскажем и покажем вам о том, как образуются нейтрино. А также расскажем о парадоксальных и удивительных результатах экспериментов с участием этих элементарных частиц.', //required
+            userIds: [],
+            requestUserIds: [],
+            maximumUsers: 20,
+            minimumUsers: 5
+        })
+    }
+    db.insertManyIntoCollection('events', events)
 })
 
 module.exports = router
