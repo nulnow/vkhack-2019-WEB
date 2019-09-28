@@ -15,7 +15,7 @@ const AdminUsers = () => {
 
     return <div className="admin-container">
         <h2>Волонтёры</h2>
-        <div id="add-user"><span>+</span></div>
+        <div id="add-user"><span className="plus">+</span></div>
         {users.map(user => {
             return <div className="user__card">
                 <div className="row txt-data">
