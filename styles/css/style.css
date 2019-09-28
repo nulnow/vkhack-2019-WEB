@@ -1107,3 +1107,5 @@ span {
 @media screen and (max-width: 780px) {
     .profile__info__container {
         width: 100%;
+    }
+}
