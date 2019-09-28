@@ -1,7 +1,7 @@
 
 // 176.119.159.40
-export const API_URL = 'http://localhost:8080/api'
-export const SOCKET_URL = 'http://localhost:8080/'
+export const API_URL = 'http://176.119.159.40:8888/api'
+export const SOCKET_URL = 'http://176.119.159.40:8888/'
 
 export const buildApiUrl = url => `${API_URL}/${url}`
 

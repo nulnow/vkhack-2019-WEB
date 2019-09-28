@@ -1,7 +1,7 @@
 process.env.SECRET_KEY='f3fj3f093209329f329ru249ty2y248t924u9t834'
 process.env.DATABASE_URL = 'mongodb+srv://user:bSmPPoXqyB1QjFmb@cluster0-sxmmm.mongodb.net/test?retryWrites=true&w=majority'
 process.env.DATABASE_NAME = 'test'
-process.env.PORT=8080
+process.env.PORT=8888
 
 const express = require('express')
 const http = require('http')
@@ -25,6 +25,7 @@ getClient()
 
         app.set('view engine', 'ejs')
         app.set('views', path.resolve(__dirname, 'views'))
+        app.use(express.static(path.resolve(__dirname, 'public')))
 
         app.use((req, res, next) => {
             res.setHeader('Access-Control-Allow-Origin', '*')
