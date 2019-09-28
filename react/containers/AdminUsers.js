@@ -9,7 +9,7 @@ const AdminUsers = () => {
     useEffect(() => {
         getUsers()
             .then(users => {
-
+                setUsers(users)
             })
     }, [])
 
