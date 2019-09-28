@@ -1,6 +1,7 @@
 const {
     findOneInCollectionByObjectId,
     updateOneInCollectionByObjectId,
+    listCollection,
 } = require('../../database/client')
 
 const router = require('express').Router()
@@ -35,6 +36,16 @@ router.get('/admin/unblock-user/:objectId', (req, res) => {
             res.sendStatus(200)
         })
         .catch(err => res.json(err))
+})
+
+router.get('/users', (req, res) => {
+    listCollection('users')
+        .then(users => {
+            res.json(users)
+        })
+        .catch(err => {
+            res.status(500).json({error})
+        })
 })
 
 module.exports = router

@@ -17,7 +17,7 @@ router.get('/', async (req, res) => {
         email,
     } = req.user
     const user = await findOneInCollection('users', { email })
-    QRCode.toDataURL(`http://176.119.159.40:8080/api/users/${user._id}`, function (err, url) {
+    QRCode.toDataURL(`http://176.119.159.40:8888/api/users/${user._id}`, function (err, url) {
         user.qrcode = url
         res.status(200).json(user)
     })
