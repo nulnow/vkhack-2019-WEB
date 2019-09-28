@@ -1053,7 +1053,7 @@ input[type="range"]::-ms-fill-upper {
     text-align: center;
 }
 
-.txt-data:last-child .col{
+.txt-data:last-child {
     position: relative;
     right: 0;
 }
@@ -1062,6 +1062,12 @@ input[type="range"]::-ms-fill-upper {
     display: flex;
     justify-content: flex-start;
     flex-direction: row;
+
+}
+
+.txt-data:last-child {
+    display: flex;
+    justify-content: flex-end;
 }
 
 .txt-data .col p {
