@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Вход</title>
+	<meta name="viewport" content="width=device-width,
+								   initial-scale=1.0">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app_bundle.css">
+</head>
+<body id="login__bg">
+
+	<!---========================== { LOGIN WINDOW BEGIN } ========================-------->
+
+	<div class="register__window">
+		<div class="left__wing">
+			<h1>Волонтёр.рф</h1>
+			<div action="" class="login__form">
+
+				<!---========================== { FIRST FORM STEP BEGIN } ========================-------->
+
+				<div class="first-step">
+					<input type="text" name="firstname" id="firtstname" class="custom__input" autocomplete="off" required>
+					<label class="lbl" for="firtstname">Имя</label>
+					<input type="text" name="lastname" id="lastname" class="custom__input" autocomplete="off" required>
+					<label class="lbl" for="lastname">Фамилия</label>
+					<button class="btn white__btn" id="btn-one-step">Далее</button>
+				</div>
+
+				<!---========================== { X FIRST FORM STEP END X } ========================-------->
+
+				<!---========================== { SECOND FORM STEP BEGIN } ========================-------->
+
+				<div class="second-step">
+					<input type="text" name="email" id="email" class="custom__input" autocomplete="off" required>
+					<label class="lbl" for="email">E-mail</label>
+					<button class="btn white__btn" id="btn-two-step">Далее</button>
+				</div>
+
+				<!---========================== { X SECOND FORM STEP END X } ========================-------->
+
+				<!---========================== { LAST FORM STEP BEGIN } ========================-------->
+
+				<div class="last-step">
+					<input type="password" name="password" id="password" class="custom__input" autocomplete="off" required>
+					<label class="lbl" for="password">Пароль</label>
+					<input type="password" name="confirm-password" id="confirm-password" class="custom__input" autocomplete="off" required>
+					<label class="lbl" for="confirm-password">Повторите пароль</label>
+					<button class="btn white__btn">Готово</button>
+				</div>
+
+				<!---========================== { X LAST FORM STEP END X } ========================-------->
+			</div>
+		</div>
+	</div>
+
+	<!---========================== { LOGIN WINDOW END } =========================-------->
+
+	<script src="app_bundle.js"></script>
+</body>
+</html>
