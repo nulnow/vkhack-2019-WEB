@@ -14,6 +14,7 @@ const EventEmitter = require('./general/EventEmitter')
 const db = require('./database/client')
 const jwt = require('jsonwebtoken')
 const morgan = require('morgan')
+const fs = require('fs')
 
 const validateToken = (token) => new Promise((resolve, reject) => {
     jwt.verify(token, process.env.SECRET_KEY, (error, verificationResult) => {

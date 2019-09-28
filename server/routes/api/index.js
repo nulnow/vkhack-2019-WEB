@@ -10,7 +10,7 @@ const router = require('express').Router()
 const profileRouter = require('./profile')
 const authRouter = require('./auth')
 const antiCorsMiddleware = require('../../middlewares/anti-cors')
-const { authenticationIsRequiredAPI } = require('../../middlewares/authenticationIsRequired')
+const { authenticationIsRequiredAPI, onyForAdmin } = require('../../middlewares/authenticationIsRequired')
 
 
 const EventEmitter = require('../../general/EventEmitter')
@@ -20,7 +20,7 @@ router.use('/profile', profileRouter)
 
 router.use(authRouter)
 
-router.get('/users/:objectId', async (req, res) => {
+router.get('/users/:objectId', onyForAdmin, async (req, res) => {
     findOneInCollectionByObjectId('users', req.params.objectId)
         .then(user => {
 
@@ -37,7 +37,7 @@ router.get('/users/:objectId/json', async (req, res) => {
         .catch(err => res.json(err))
 })
 
-router.get('/admin/block-user/:objectId', (req, res) => {
+router.get('/admin/block-user/:objectId', onyForAdmin, (req, res) => {
 
     updateOneInCollectionByObjectId('users', req.params.objectId, {isBlocked: true})
         .then(user => {
@@ -50,7 +50,7 @@ router.get('/admin/block-user/:objectId', (req, res) => {
         .catch(err => res.json(err))
 })
 
-router.get('/admin/unblock-user/:objectId', (req, res) => {
+router.get('/admin/unblock-user/:objectId', onyForAdmin, (req, res) => {
     updateOneInCollectionByObjectId('users', req.params.objectId, {isBlocked: false})
         .then(user => {
             res.sendStatus(200)
@@ -58,7 +58,7 @@ router.get('/admin/unblock-user/:objectId', (req, res) => {
         .catch(err => res.json(err))
 })
 
-router.get('/users', (req, res) => {
+router.get('/users', onyForAdmin, (req, res) => {
     listCollection('users')
         .then(users => {
             res.json(users)
@@ -98,7 +98,7 @@ router.get('/events', async (req, res) => {
     }
 })
 
-router.get('/make-request/:objectId', authenticationIsRequiredAPI, async (req, res) => {
+router.get('/make-request/:objectId', onyForAdmin, authenticationIsRequiredAPI, async (req, res) => {
     const objectId = req.params.objectId
     const user = await db.findOneInCollection('users', { email: req.user.email })
     const events = await db.findOneInCollectionByObjectId('events', objectId)
