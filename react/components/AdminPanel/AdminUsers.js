@@ -4,7 +4,7 @@ import Loader from './../Loader';
 const AdminUsers = ({isLoading, users, error}) => {
 
     const [filter, setFilter] = useState(null)
-
+    
     const handleFilterChange = (e) => {
         setFilter(e.target.value)
     }
