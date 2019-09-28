@@ -8,7 +8,7 @@
     <title>Информация</title>
 </head>
 <body class="<%= user.isBlocked ? 'red' : 'green' %>">
-<img src="<% user.avatar %>" class="user-ava">
+<img src="<%= user.avatar %>" class="user-ava">
 <h1>Статус: <%= user.isBlocked ? 'Заблокирован' : 'Не заблокирован' %></h1>
 <style>
 
