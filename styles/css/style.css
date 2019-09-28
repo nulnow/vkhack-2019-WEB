@@ -933,7 +933,7 @@ input[type="range"]::-ms-fill-upper {
     background-color: white;
     width: 300px;
     height: 100%;
-    left: -400px;
+    left: -200px;
     transition: 0.3s ease-in-out;
 }
 
@@ -965,7 +965,7 @@ input[type="range"]::-ms-fill-upper {
     right: 100px;
 }
 
-.left-nav--shown {
+.left-nav:hover {
     left: 0;
 }
 

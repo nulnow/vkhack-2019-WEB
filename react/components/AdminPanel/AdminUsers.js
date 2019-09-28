@@ -1,5 +1,6 @@
 import React, {  useState } from 'react'
 import Loader from './../Loader';
+import connection from '../../connection'
 
 const AdminUsers = ({isLoading, users, error}) => {
 
@@ -36,7 +37,13 @@ const AdminUsers = ({isLoading, users, error}) => {
                         <div className="col">
                             <img src="/img/ban.svg" alt className="edit__user" />
                             <img src="/img/edit.svg" alt className="edit__user" />
-                            <button className="btn">Написать</button>
+                            <button className="btn" onClick={() => {
+                                // let message = prompt('Введите сообщение')
+                                // connection.emit('SEND_MESSAGE', {
+                                //     email: user.email,
+                                //     message,
+                                // })
+                            }}>Написать</button>
                         </div>
                     </div>
                 </div>
