@@ -113,4 +113,23 @@ router.get('/make-request/:objectId', onyForAdmin, authenticationIsRequiredAPI, 
     res.status(200).json(user)
 })
 
+router.get('/admin/events', onyForAdmin, async (req, res) => {
+    const users = await db.listCollection('users')
+    const events = await db.listCollection('events')
+
+    users.forEach(user => {
+        if (user.requesteds_events_ids && user.requesteds_events_ids.length) {
+            user.requesteds_events_ids.forEach(eventID => {
+                events.forEach(e => {
+                    if (e._id.toString() === eventID) {
+                        e.users = [...(e.users || []), user]
+                    }
+                })
+            })
+        }
+    })
+
+    res.json(events.filter(event => event.users && event.users.length))
+})
+
 module.exports = router
