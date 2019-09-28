@@ -1053,12 +1053,25 @@ input[type="range"]::-ms-fill-upper {
     text-align: center;
 }
 
+.txt-data:last-child .col{
+    position: relative;
+    right: 0;
+}
+
+.txt-data .col{
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+}
+
 .txt-data .col p {
     white-space: nowrap;
+    overflow: hidden;
     position: relative;
     font-size: 14px;
-    top: 14px;
+    top: 16px;
     cursor: pointer;
+    text-overflow: ellipsis;
 }
 
 .txt-data .col:not(:first-child) {
@@ -1075,7 +1088,6 @@ input[type="range"]::-ms-fill-upper {
 
 .edit__user {
     position: relative;
-    top: 14px;
     margin-right: 20px;
 }
 .user__avatar {
