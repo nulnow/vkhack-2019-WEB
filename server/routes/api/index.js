@@ -98,7 +98,8 @@ router.get('/events', async (req, res) => {
     }
 })
 
-router.get('/make-request/:objectId', onyForAdmin, authenticationIsRequiredAPI, async (req, res) => {
+
+router.get('/make-request/:objectId', authenticationIsRequiredAPI, async (req, res) => {
     const objectId = req.params.objectId
     const user = await db.findOneInCollection('users', { email: req.user.email })
     const events = await db.findOneInCollectionByObjectId('events', objectId)
@@ -113,7 +114,7 @@ router.get('/make-request/:objectId', onyForAdmin, authenticationIsRequiredAPI, 
     res.status(200).json(user)
 })
 
-router.get('/admin/events', onyForAdmin, async (req, res) => {
+router.get('/admin/events', async (req, res) => {
     const users = await db.listCollection('users')
     const events = await db.listCollection('events')
 
@@ -130,6 +131,68 @@ router.get('/admin/events', onyForAdmin, async (req, res) => {
     })
 
     res.json(events.filter(event => event.users && event.users.length))
+})
+
+router.post('/admin/accept-user', async (req, res) => {
+    const {
+        userId,
+        eventId,
+    } = req.body
+
+    if (!userId || !eventId) {
+        return res.status(400).json({message: 'userId || eventId не посланы'})
+    }
+
+    const user = await db.findOneInCollectionByObjectId('users', userId)
+    const event = await db.findOneInCollectionByObjectId('events', eventId)
+
+    if (!user || !event) {
+        return res.status(400).json({message: '!user || !event'})
+    } else {
+        user.requesteds_events_ids = (user.requesteds_events_ids || [])
+            .filter(eventIdFromUser => {
+                return eventIdFromUser.toString() !== eventId.toString()
+            })
+        user.accepted_requested_events_ids = [
+            ...(user.accepted_requested_events_ids || []),
+            eventId,
+        ]
+        // TODO emit
+        await updateOneInCollectionByObjectId('users', user._id, user)
+        res.status(200).json({message: 'ok'})
+    }
+})
+
+router.post('/admin/reject-user', async (req, res) => {
+    const {
+        userId,
+        eventId,
+    } = req.body
+
+    if (!userId || !eventId) {
+        return res.status(400).json({message: 'userId || eventId не посланы'})
+    }
+
+    const user = await db.findOneInCollectionByObjectId('users', userId)
+    const event = await db.findOneInCollectionByObjectId('events', eventId)
+
+    if (!user || !event) {
+        return res.status(400).json({message: '!user || !event'})
+    } else {
+        user.requesteds_events_ids = (user.requesteds_events_ids || [])
+            .filter(eventIdFromUser => {
+                return eventIdFromUser.toString() !== eventId.toString()
+            })
+        user.rejected_requested_events_ids = [
+            ...(user.rejected_requested_events_ids || []),
+            eventId,
+        ]
+
+        await updateOneInCollectionByObjectId('users', user._id, user)
+        res.status(200).json({message: 'ok'})
+
+        // EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, (user.email, '')
+    }
 })
 
 module.exports = router

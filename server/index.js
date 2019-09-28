@@ -141,6 +141,22 @@ getClient()
             })
         })
 
+        EventEmitter.subscribe(EventEmitter.TYPES.USER_NOTIFY, async (email, message) => {
+            const userConnections = sockets.filter(s => s.email === email)
+            if (userConnections && userConnections.length) {
+                userConnections.forEach(connection => {
+                    connection.emit(EventEmitter.TYPES.USER_NOTIFY, message)
+                })
+            }
+            const user = await db.findOneInCollection('users', {email})
+            if (!user) return
+            const { token } = user
+            if (!token || !Expo.isExpoPushToken(token)) return
+            push([token], {
+                body: message
+            })
+        })
+
         server.listen(process.env.PORT, '0.0.0.0', () => {
             console.log('app is listening on ' + process.env.PORT + ' port')
         })
