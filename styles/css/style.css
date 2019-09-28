@@ -1143,3 +1143,15 @@ input[type="range"]::-ms-fill-upper {
         width: 100%;
     }
 }
+
+.btn:disabled {
+     background-color: #3C3C3C;
+     cursor: default;
+    box-shadow: none;
+ }
+
+.btn:disabled:hover {
+    background-color: #3C3C3C;
+    cursor: default;
+    box-shadow: none;
+}

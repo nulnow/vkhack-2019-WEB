@@ -12,6 +12,16 @@ const STATIC_PAGES = require('./STATIC_PAGES')
 const path = require('path')
 const EventEmitter = require('./general/EventEmitter')
 const db = require('./database/client')
+const jwt = require('jsonwebtoken')
+
+const validateToken = (token) => new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.SECRET_KEY, (error, verificationResult) => {
+        if (error) {
+            return reject()
+        }
+        resolve(verificationResult)
+    })
+})
 
 const { Expo } = require('expo-server-sdk')
 const expo = new Expo()
@@ -83,6 +93,44 @@ getClient()
             push([user.token], {
                 title: '(БАН) Бан по причине (причина)',
                 type: 'BAN'
+            })
+        })
+
+        let sockets = []
+
+        EventEmitter.subscribe(EventEmitter.TYPES.USER_REGISTERED, user => {
+            sockets.filter(s => s.isAdmin)
+                .forEach(s => {
+                    s.emit(EventEmitter.TYPES.USER_REGISTERED, user)
+                })
+        })
+
+
+
+        io.on('connection', socket => {
+            console.log('!CONNECTED!')
+            sockets = [...sockets, socket]
+            console.log('sockets: ' + sockets.length)
+            socket.on('disconnect', () => {
+                sockets = sockets.filter(s => s !== socket)
+            })
+            socket.on('AUTHORIZE', async (payload) => {
+                console.log('on AUTHORIZE')
+                const {
+                    token,
+                } = payload
+
+                let parsedToken
+                try {
+                    parsedToken = await validateToken(token)
+                } catch(err) {
+                    return
+                }
+                const user = db.findOneInCollection('users', {email: parsedToken.email})
+                socket.email = parsedToken.email
+                socket.isAdmin = !!user.isAdmin
+                console.log('!AUTHORIZED!', + ' ' + socket.email + ' isAdmin ' + socket.isAdmin)
+
             })
         })
 
