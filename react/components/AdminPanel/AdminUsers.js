@@ -10,7 +10,7 @@ const AdminUsers = ({isLoading, users, error}) => {
     }
 
     let filteredUsers = filter
-        ? users.filter(user => user.firstName.toLowerCase().includes(filter.toLowerCase()) || user.lastName.toLowerCase().includes(filter.toLowerCase()))
+        ? (users || []).filter(user => user.firstName.toLowerCase().includes(filter.toLowerCase()) || user.lastName.toLowerCase().includes(filter.toLowerCase()))
         : users
 
     return <div className="admin-container">
@@ -20,7 +20,7 @@ const AdminUsers = ({isLoading, users, error}) => {
 
         {isLoading 
             ? <Loader />
-            : filteredUsers.map(user => {
+            : (filteredUsers || []).map(user => {
                 return <div key={user._id} className="user__card">
                     <div className="row txt-data">
                         <div className="col">

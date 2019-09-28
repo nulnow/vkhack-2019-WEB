@@ -1062,6 +1062,7 @@ input[type="range"]::-ms-fill-upper {
     margin: 0 auto;
     background-color: white;
     border-radius: 18px;
+    animation: loadevent ease-in-out .55s;
 }
 
 .send-message h3 {
@@ -1198,4 +1199,16 @@ input[type="range"]::-ms-fill-upper {
     .profile__info__container {
         width: 100%;
     }
+}
+
+.btn:disabled {
+     background-color: #3C3C3C;
+     cursor: default;
+    box-shadow: none;
+ }
+
+.btn:disabled:hover {
+    background-color: #3C3C3C;
+    cursor: default;
+    box-shadow: none;
 }

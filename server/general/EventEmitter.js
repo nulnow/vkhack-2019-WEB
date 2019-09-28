@@ -23,7 +23,8 @@ class EventEmitter {
 }
 
 EventEmitter.TYPES = {
-    USER_BLOCKED: 'USER_BLOCKED'
+    USER_BLOCKED: 'USER_BLOCKED',
+    USER_REGISTERED: 'USER_REGISTERED',
 }
 
 module.exports = EventEmitter

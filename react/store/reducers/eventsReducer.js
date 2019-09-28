@@ -95,6 +95,6 @@ export const reloadEvents = () => dispatch => {
             setTimeout(() => {
                 dispatch(setEvents(events))
                 dispatch(setLoading(false))
-            }, 2000)
+            }, 500)
         })
 }
