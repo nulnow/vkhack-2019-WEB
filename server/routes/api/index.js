@@ -20,6 +20,15 @@ router.get('/users/:objectId', async (req, res) => {
     findOneInCollectionByObjectId('users', req.params.objectId)
         .then(user => {
             res.render('user.ejs', {user})
+
+        })
+        .catch(err => res.json(err))
+})
+
+router.get('/users/:objectId/json', async (req, res) => {
+    findOneInCollectionByObjectId('users', req.params.objectId)
+        .then(user => {
+            res.json(user)
         })
         .catch(err => res.json(err))
 })
