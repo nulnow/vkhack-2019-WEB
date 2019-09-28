@@ -4,6 +4,8 @@ import * as PAGES from '../PAGES'
 import { withRouter } from 'react-router'
 import { connect } from 'react-redux'
 import { preloadUsers } from '../store/reducers/usersReducer';
+import AdminUsers from './AdminUsers'
+import AdminEvents from './AdminEvents'
 
 const mapStateToProps = state => ({
     ...state.users
@@ -12,6 +14,7 @@ const mapStateToProps = state => ({
 export default connect(mapStateToProps)(({
     isLoading, error, users, dispatch
 }) => {
+    const [ page, setPage ] = useState('users')
     useEffect(() => {
         dispatch(preloadUsers())
     }, [])
@@ -37,30 +40,13 @@ export default connect(mapStateToProps)(({
             </ul>
         </div>
         {/*-========================== { LEFT NAV END } ====================------*/}
-        <div className="admin-container">
-            <h2>Волонтёры</h2>
-            <div id="add-user"><span>+</span></div>
-            {users.map(user => {
-                return <div className="user__card">
-                <div className="row txt-data">
-                    <div className="col">
-                        <img src={user.avatar || defaultAvatar} alt className="user__avatar" />
-                        <p className="user__name">{`${user.firstName} ${user.lastName}`}</p>
-                    </div>
-                    <div className="col">
-                        <p>{user.phone}</p>
-                    </div>
-                    <div className="col">
-                        <p>{user.email}</p>
-                    </div>
-                    <div className="col">
-                        <img src="/img/ban.svg" alt className="edit__user" />
-                        <img src="/img/edit.svg" alt className="edit__user" />
-                        <button className="btn">Написать</button>
-                    </div>
-                </div>
-            </div>
-            })}
-        </div>
+        {(() => {
+            switch (page) {
+                case 'users':
+                    return <AdminUsers/>
+                case 'events':
+                    return <AdminEvents/>
+            }
+        })()}
     </div>
 })
