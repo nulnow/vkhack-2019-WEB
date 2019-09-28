@@ -1060,6 +1060,7 @@ input[type="range"]::-ms-fill-upper {
     margin: 0 auto;
     background-color: white;
     border-radius: 18px;
+    animation: loadevent ease-in-out .55s;
 }
 
 .send-message h3 {
