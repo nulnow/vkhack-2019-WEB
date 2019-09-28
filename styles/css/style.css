@@ -1042,6 +1042,42 @@ input[type="range"]::-ms-fill-upper {
     border-radius: 18px;
 }
 
+.pop-up {
+    position: fixed;
+    z-index: 10;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, .5);
+}
+
+.send-message {
+    position: relative;
+    padding: 38px;
+    display: block;
+    width: 400px;
+    height: fit-content;
+    top: 17%;
+    margin: 0 auto;
+    background-color: white;
+    border-radius: 18px;
+}
+
+.send-message h3 {
+    margin-bottom: 38px;
+}
+
+.send-message .input-txt {
+    width: 100%;
+    margin: 0 auto;
+    margin-bottom: 14px;
+    border: 2px solid #5F3EFF;
+}
+
+.send-message .btn {
+    position: relative;
+    width: 100%;
+}
+
 .txt-data {
     position: relative;
     display: flex;
