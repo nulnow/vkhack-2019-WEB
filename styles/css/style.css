@@ -290,6 +290,7 @@ section {
     color: #3C3C3C;
     position: relative;
     font-size: 16px;
+    max-width: 600px;
     top: 25px;
 }
 
@@ -869,6 +870,7 @@ input[type="range"]::-ms-fill-upper {
 
 #add-user {
     position: absolute;
+    top: 32px;
     right: 38px;
     background-color: #3EFF91;
     color: white;
@@ -961,6 +963,7 @@ span {
     flex-direction: column;
     margin-left: 300px;
     padding: 38px;
+    animation: loadevent ease-in-out .55s;
 }
 
 .admin-container textarea {
@@ -1027,10 +1030,13 @@ span {
 .txt-data .col p {
     white-space: nowrap;
     position: relative;
-    color: rgba(0, 0, 0, .35);
     font-size: 14px;
     top: 14px;
     cursor: pointer;
+}
+
+.txt-data .col:not(:first-child) {
+    color: rgba(0, 0, 0, .35);
 }
 
 .txt-data .btn {
@@ -1041,16 +1047,11 @@ span {
     width: 130px;
 }
 
-#edit__user {
+.edit__user {
     position: relative;
     top: 14px;
     margin-right: 20px;
 }
-
-#user__name {
-    color: black;
-}
-
 .user__avatar {
     display: block;
     float: left;
