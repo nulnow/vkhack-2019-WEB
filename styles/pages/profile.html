@@ -1,13 +1,116 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE html>
+<html lang="ru">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Профиль</title>
+	<title>Мой профиль</title>
+	<meta name="viewport" content="width=device-width,
+								   initial-scale=1.0">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app_bundle.css">
 </head>
 <body>
 
+	<!---========================== { NAV SECTION BEGIN } ========================-------->
+
+	<section class="nav">
+		<div class="container">
+				<div class="row header">
+					<div class="col"></div>
+					<div class="col">
+						<h1 class="logo">Волонтёр.рф</h1>
+					</div>
+					<div class="col">
+						<div class="avatar"></div>
+					</div>
+				</div>
+			<div class="nav__fixed">
+				<div class="row menu">
+					<div class="col"><a href="events.html" class="menu-element" id="events">Cобытия</a></div>
+					<div class="col"><a href="museums.html" class="menu-element" id="museums">Музеи</a></div>
+					<div class="col"><a href="subscriptions.html" class="menu-element" id="subs">Подписки</a></div>
+					<div class="col"><a href="" class="menu-element active profile">Профиль</a></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!---========================== { NAV SECTION END } =========================-------->
+
+	<!---========================== { CONTENT SECTION BEGIN } ===================-------->
+
+	<section class="content">
+		<div class="container">
+			<img class="profile__avatar" src="" width="200" height="200" alt="">
+			<div class="profile__info__container">
+				<img src="/img/edit.svg" class="edit__info" alt="">
+				<h1 class="profile__name">Имя Фамилия, 17</h1>
+				<div class="profile__info">
+					<p class="profile__about">Привет! Увлекаюсь первым и вторым, занимаюсь третьим. Очень активный и творческий человек, всегда рад помочь в том-то и сём-то!</p>
+					<div class="row">
+						<div class="col">
+							<p class="info__type">Рейтинг</p>
+						</div>
+						<div class="col"><p class="info__type rating">10</p></div>
+					</div>
+					<input type="range" disabled="true" min="0" max="20" value="10">
+					<p class="info__type">Образование</p>
+					<p class="info__prop">Студент</p>
+					<p class="info__type">Знание английского</p>
+					<p class="info__prop">B1</p>
+					<p class="info__type">Волонтёрская деятельность</p>
+					<div class="museums">
+						<p class="info__museum">Политех</p>
+						<p class="info__museum">Музей истории ГУЛАГа</p>
+						<p class="info__museum">Третьяковская галлерея</p>
+						<p class="info__museum">Дарвиновский музей</p>
+					</div>
+					<div class="row">
+						<div class="col">
+							<p class="info__type">Проведённые мероприятия</p>
+						</div>
+						<div class="col">
+							<label for="show-all" class="info__type events__more">Показать все</label>
+						</div>
+					</div>
+					<input type="checkbox" id="show-all"/>
+					<div class="profile__events">
+						<div class="profile__event">
+							<h3 class="event__h">Выставка новых музейных экспонатов </h3>
+							<p class="date">14 сентября</p>
+						</div>
+						<div class="profile__event">
+							<h3 class="event__h">Океан Айвазовского</h3>
+							<p class="date">9 сентября</p>
+						</div>
+						<div class="profile__event">
+							<h3 class="event__h">Поч коммунизм это говно</h3>
+							<p class="date">3 сентября</p>
+						</div>
+						<div class="profile__event">
+							<h3 class="event__h">Мероприятие 4</h3>
+							<p class="date">14 сентября</p>
+						</div>
+						<div class="profile__event">
+							<h3 class="event__h">Мероприятие 5</h3>
+							<p class="date">14 сентября</p>
+						</div>
+						<div class="profile__event">
+							<h3 class="event__h">Мероприятие 6</h3>
+							<p class="date">14 сентября</p>
+						</div>
+						<div class="profile__event">
+							<h3 class="event__h">Мероприятие 7</h3>
+							<p class="date">14 сентября</p>
+						</div>
+					</div>
+					<p class="info__type">Мобильный номер</p>
+					<p class="info__prop">8 (800) 555-35-35</p>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!---========================== { CONTENT SECTION END } ====================-------->
+	<script src="app_bundle.js"></script>
 </body>
 </html>

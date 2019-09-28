@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>События</title>
+	<meta name="viewport" content="width=device-width,
+								   initial-scale=1.0">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app_bundle.css">
+</head>
+<body>
+
+	<!---========================== { NAV SECTION BEGIN } ========================-------->
+
+	<section class="nav">
+		<div class="container">
+				<div class="row header">
+					<div class="col"></div>
+					<div class="col">
+						<h1 class="logo">Волонтёр.рф</h1>
+					</div>
+					<div class="col">
+						<img src="" class="avatar" width="40px" height="40px">
+					</div>
+				</div>
+			<div class="nav__fixed">
+				<div class="row menu">
+					<div class="col"><a href="" class="menu-element active" id="events">Cобытия</a></div>
+					<div class="col"><a href="museums.html" class="menu-element" id="museums">Музеи</a></div>
+					<div class="col"><a href="subscriptions.html" class="menu-element" id="subs">Подписки</a></div>
+					<div class="col"><a href="profile.html" class="menu-element profile">Профиль</a></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!---========================== { NAV SECTION END } =========================-------->
+
+	<!---========================== { CONTENT SECTION BEGIN } ===================-------->
+
+	<section class="content">
+		<div class="container">
+			<div class="row events-info">
+				<div class="col"><h2>Предстоящие</h2></div>
+				<div class="col"><p class="counter">16 событий</p></div>
+			</div>
+			<div class="row event__card">
+				<img class="event__img" src="/img/politeh.png" alt="">
+				<div class="text-content">
+					<h3 class="event__h">Политехнический музей</h3>
+					<p class="date">14 сентября</p>
+					<p class="description">Краткое описание предстоящего 
+														мероприятия.</p>
+				</div>
+				<div class="btn-container"><button class="btn">Подать заявку</button></div>
+			</div>
+			<div class="row event__card">
+				<img class="event__img" src="/img/gulag.png" alt="">
+				<div class="text-content">
+					<h3 class="event__h">Музей ГУЛАГа</h3>
+					<p class="date">14 сентября</p>
+					<p class="description">Расскажем вам о том, как обосрались
+коммунисты в 20-м веке.</p>
+				</div>
+				<div class="btn-container"><button class="btn accepted">Заявка подана</button></div>
+			</div>
+			<div class="row event__card">
+				<img class="event__img" src="/img/gallery.png" alt="">
+				<div class="text-content">
+					<h3 class="event__h">Третьяковская галлерея</h3>
+					<p class="date">14 сентября</p>
+					<p class="description">Во мне узи, я Ван Гог. На мне пусси,
+я Ван Гог. Я в джакузи, я Ван Гог..</p>
+				</div>
+				<div class="btn-container"><button class="btn">Подать заявку</button></div>
+			</div>
+		</div>
+	</section>
+
+	<!---========================== { CONTENT SECTION END } ====================-------->
+	<script src="app_bundle.js"></script>
+</body>
+</html>

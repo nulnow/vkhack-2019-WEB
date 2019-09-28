@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+	<title>Мои подписки</title>
+	<meta name="viewport" content="width=device-width,
+								   initial-scale=1.0">
+	<meta charset="utf-8">
+	<link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
+	<link rel="stylesheet" href="app_bundle.css">
+</head>
+<body>
+
+	<!---========================== { NAV SECTION BEGIN } ========================-------->
+
+	<section class="nav">
+		<div class="container">
+				<div class="row header">
+					<div class="col"></div>
+					<div class="col">
+						<h1 class="logo">Волонтёр.рф</h1>
+					</div>
+					<div class="col">
+						<div class="avatar"></div>
+					</div>
+				</div>
+			<div class="nav__fixed">
+				<div class="row menu">
+					<div class="col"><a href="events.html" class="menu-element" id="events">Cобытия</a></div>
+					<div class="col"><a href="museums.html" class="menu-element" id="museums">Музеи</a></div>
+					<div class="col"><a href="" class="menu-element active" id="subs">Подписки</a></div>
+					<div class="col"><a href="profile.html" class="menu-element profile">Профиль</a></div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!---========================== { NAV SECTION END } =========================-------->
+
+	<!---========================== { CONTENT SECTION BEGIN } ===================-------->
+
+	<section class="content">
+		<div class="container">
+			<div class="row info">
+				<div class="col"><h2>Мои заявки</h2></div>
+				<div class="col"><p class="counter">1 заявка</p></div>
+			</div>
+			<div class="row sub__card">
+				<div class="text-content">
+					<h3 class="event__h">Музей ГУЛАГа</h3>
+					<p class="date">14 сентября</p>
+				</div>
+				<div class="cancel__sub">
+					<img src="/img/x.svg" alt="">
+				</div>
+				<input type="checkbox" id="checkbox">
+				<div class="cancel__circle"></div>
+			</div>
+		</div>
+	</section>
+
+	<!---========================== { CONTENT SECTION END } ====================-------->
+	<script src="app_bundle.js"></script>
+</body>
+</html>
