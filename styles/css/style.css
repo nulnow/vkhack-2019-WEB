@@ -961,6 +961,7 @@ span {
     flex-direction: column;
     margin-left: 300px;
     padding: 38px;
+    animation: loadevent ease-in-out .55s;
 }
 
 .admin-container textarea {
@@ -1041,13 +1042,13 @@ span {
     width: 130px;
 }
 
-#edit__user {
+.edit__user {
     position: relative;
     top: 14px;
     margin-right: 20px;
 }
 
-#user__name {
+.user__name {
     color: black;
 }
 
@@ -1107,3 +1108,5 @@ span {
 @media screen and (max-width: 780px) {
     .profile__info__container {
         width: 100%;
+    }
+}
