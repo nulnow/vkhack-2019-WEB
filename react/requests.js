@@ -1,0 +1,54 @@
+import { EVENTS_URL, LOGIN_URL, PROFILE_URL, REGISTER_URL, LOGOUT_URL, MUSEUMS_URL } from './URLS'
+import { getJson, postJson } from './helpers/network'
+
+
+export const getProfile = () =>
+    new Promise((resolve, reject) =>
+        getJson(PROFILE_URL)
+            .then(resolve)
+            .catch(reject))
+
+
+export const register = (model) =>
+    new Promise((resolve, reject) =>
+        postJson(REGISTER_URL, model)
+            .then(response => {
+            debugger
+                if (response.status === 200) return response.json()
+
+                throw new Error('Не удаётся зарегистрироваться((((((((((')
+            })
+            .then(resolve)
+            .catch(reject))
+
+
+export const login = (model) =>
+    new Promise((resolve, reject) =>
+        postJson(LOGIN_URL, model)
+            .then(response => {
+                if (response.status === 200) return response.json()
+
+                throw new Error('Неправильный логин или пароль')
+            })
+            .then(resolve)
+            .catch(reject))
+
+export const logout = () =>
+    new Promise((resolve, reject) =>
+        postJson(LOGOUT_URL, {t: Math.random()})
+            .then(response => {
+                if (response.status === 200) return response.json()
+                throw new Error('На сервере произошла ошибка при выходе из аккаунта')
+            })
+            .then(resolve)
+            .catch(reject))
+
+export const updateProfile = (model) =>
+    new Promise((resolve, reject) =>
+        postJson(PROFILE_URL, model)
+            .then(response => {
+                if (response.status === 200) return response.json()
+                throw new Error('Не удалось обновить профиль')
+            })
+            .then(resolve)
+            .catch(reject))

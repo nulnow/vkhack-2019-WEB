@@ -4,7 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const path = require('path')
 const proxy = require('express-http-proxy')
 const STATIC_PAGES = require('./server/STATIC_PAGES')
-
+const antiCorsMiddleware = require('./server/middlewares/anti-cors')
 
 module.exports = webpackMerge(commonWebpackSettings, {
     mode: 'development',
@@ -24,17 +24,13 @@ module.exports = webpackMerge(commonWebpackSettings, {
             path.join(__dirname, 'server/public'),
             path.join(__dirname, 'styles/pages'),
         ],
-        proxy: {
-            '/api': 'http://127.0.0.1:8080/',
-        },
-        before: (app, server) => {
+        // proxy: {
+        //     '/api': 'http://127.0.0.1:8080/',
+        // },
+        before: (app) => {
             app.set('view engine', 'ejs')
 
-            app.use((req, res, next) => {
-                res.setHeader('Access-Control-Allow-Origin', '*')
-                res.setHeader('Access-Control-Allow-Headers', 'origin, content-type, accept, authorization')
-                next()
-            })
+            app.use(antiCorsMiddleware)
 
             ;STATIC_PAGES.forEach(pageUrl => {
                 app.get(pageUrl, (req, res) => {
