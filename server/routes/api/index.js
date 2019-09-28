@@ -19,8 +19,8 @@ router.use(authRouter)
 router.get('/users/:objectId', async (req, res) => {
     findOneInCollectionByObjectId('users', req.params.objectId)
         .then(user => {
-            res.render('user.ejs', {user})
 
+            res.render('user.ejs', {user})
         })
         .catch(err => res.json(err))
 })
