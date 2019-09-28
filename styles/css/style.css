@@ -290,6 +290,7 @@ section {
     color: #3C3C3C;
     position: relative;
     font-size: 16px;
+    max-width: 600px;
     top: 25px;
 }
 
