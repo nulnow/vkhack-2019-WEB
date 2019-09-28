@@ -10,6 +10,11 @@ const bodyParser = require('body-parser')
 const authenticate = require('./middlewares/authenticate')
 const STATIC_PAGES = require('./STATIC_PAGES')
 const path = require('path')
+const EventEmitter = require('./general/EventEmitter')
+const db = require('./database/client')
+
+const { Expo } = require('expo-server-sdk')
+const expo = new Expo()
 
 const {
     getClient,
@@ -17,6 +22,25 @@ const {
 
 const apiRouter = require('./routes/api')
 
+const push = (tokens, payload, data = {}) => {
+    let messages = []
+    tokens.forEach(token => {
+        messages.push({
+            to: token,
+            sound: 'default',
+            body: payload.title,
+            data: {
+                ...payload,
+            },
+        })
+    })
+    const chunks = expo.chunkPushNotifications(messages)
+    ;(async () => {
+        for (let chunk of chunks) {
+            await expo.sendPushNotificationsAsync(chunk)
+        }
+    })()
+}
 
 getClient()
     .then(async c => {
@@ -44,6 +68,23 @@ getClient()
         app.use('/api', apiRouter)
         const server = http.createServer(app)
         const io = socketIo(server)
+
+        EventEmitter.subscribe(EventEmitter.TYPES.USER_BLOCKED,  async (email) => {
+            const user = await db.findOneInCollection('users', {email})
+            if (!user) {
+                console.log('no user with email ' + email)
+                return
+            }
+            if (!Expo.isExpoPushToken(user.token)) {
+                console.log('пуш плохой')
+                return
+            }
+            console.log('Пушим пуш')
+            push([user.token], {
+                title: '(БАН) Бан по причине (причина)',
+                type: 'BAN'
+            })
+        })
 
         server.listen(process.env.PORT, '0.0.0.0', () => {
             console.log('app is listening on ' + process.env.PORT + ' port')

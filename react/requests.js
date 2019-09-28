@@ -2,6 +2,29 @@ import { EVENTS_URL, LOGIN_URL, PROFILE_URL, REGISTER_URL, LOGOUT_URL, MUSEUMS_U
 import { getJson, postJson } from './helpers/network'
 
 
+export const getEventsRequest = () =>
+    new Promise(
+        (resolve, reject) =>
+            getJson(EVENTS_URL)
+                .then(resolve)
+                .catch(reject))
+
+export const getMuseumsRequest = () =>
+    new Promise(
+        (resolve, reject) =>
+            getJson(MUSEUMS_URL)
+                .then(resolve)
+                .catch(reject))
+
+
+export const postEventRequest = event =>
+    new Promise(
+        (resolve,reject) =>
+            postJson(EVENTS_URL, event)
+                .then(resolve)
+                .then(reject))
+
+
 export const getProfile = () =>
     new Promise((resolve, reject) =>
         getJson(PROFILE_URL)
