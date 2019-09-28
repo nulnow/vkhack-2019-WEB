@@ -869,6 +869,7 @@ input[type="range"]::-ms-fill-upper {
 
 #add-user {
     position: absolute;
+    top: 32px;
     right: 38px;
     background-color: #3EFF91;
     color: white;
@@ -1028,10 +1029,13 @@ span {
 .txt-data .col p {
     white-space: nowrap;
     position: relative;
-    color: rgba(0, 0, 0, .35);
     font-size: 14px;
     top: 14px;
     cursor: pointer;
+}
+
+.txt-data .col:not(:first-child) {
+    color: rgba(0, 0, 0, .35);
 }
 
 .txt-data .btn {
@@ -1047,11 +1051,6 @@ span {
     top: 14px;
     margin-right: 20px;
 }
-
-.user__name {
-    color: black;
-}
-
 .user__avatar {
     display: block;
     float: left;
