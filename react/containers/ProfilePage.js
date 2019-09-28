@@ -118,7 +118,62 @@ const ProfilePage = ({
                                     <div className="col right"><p className="info__type rating">5</p></div>
                                 </div>
                                 <input type="range" disabled="true" min="0" max="20" value="5" />
-                                <img src={qrcode} alt="qrcode"/>
+                                <div className="qr-container">
+                                    <img className="qr-code" src={qrcode} alt="qrcode"/>
+                                </div>
+                                <p className="info__type">Образование</p>
+                                <p className="info__prop">Студент</p>
+                                <p className="info__type">Знание английского</p>
+                                <p className="info__prop">B1</p>
+                                <p className="info__type">Волонтёрская деятельность</p>
+                                <div className="museums">
+                                    <p className="info__museum">Политех</p>
+                                    <p className="info__museum">Музей истории ГУЛАГа</p>
+                                    <p className="info__museum">Третьяковская галлерея</p>
+                                    <p className="info__museum">Дарвиновский музей</p>
+                                </div>
+                                <div className="row">
+                                    <div className="col">
+                                        <p className="info__type">Проведённые мероприятия</p>
+                                    </div>
+                                    <div className="col">
+                                        <label htmlFor="show-all" className="info__type events__more">Показать
+                                            все</label>
+                                    </div>
+                                </div>
+                                <input type="checkbox" id="show-all"/>
+                                <div className="profile__events">
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Выставка новых музейных экспонатов </h3>
+                                        <p className="date">14 сентября</p>
+                                    </div>
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Океан Айвазовского</h3>
+                                        <p className="date">9 сентября</p>
+                                    </div>
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Микромир. Маленькая вселенная</h3>
+                                        <p className="date">3 сентября</p>
+                                    </div>
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Мероприятие 4</h3>
+                                        <p className="date">14 сентября</p>
+                                    </div>
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Мероприятие 5</h3>
+                                        <p className="date">14 сентября</p>
+                                    </div>
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Мероприятие 6</h3>
+                                        <p className="date">14 сентября</p>
+                                    </div>
+                                    <div className="profile__event">
+                                        <h3 className="event__h">Мероприятие 7</h3>
+                                        <p className="date">14 сентября</p>
+                                    </div>
+                                </div>
+                                <p className="info__type">Мобильный номер</p>
+                                <p className="info__prop">8 (800) 555-35-35</p>
                             </div>
                         </div>
                     </div>

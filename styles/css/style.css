@@ -890,7 +890,15 @@ input[type="range"]::-ms-fill-upper {
     transform: scale(0.9);
 }
 
-span {
+.qr-code {
+    width: 100%;
+}
+
+.qr-container {
+    margin: 0 -38px;
+}
+
+ .plus {
     position: absolute;
     font-size: 30px;
     top: 1px;
