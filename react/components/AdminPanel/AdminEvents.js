@@ -16,7 +16,8 @@ const AdminEvents = ({
     //         })
     // }, [])
 
-    return <section className="content">
+    return <div className="admin-container">
+    <section className="content">
         <div className="container">
             <div className="row events-info">
                 <div className="col"><h2>Предстоящие</h2></div>
@@ -42,6 +43,7 @@ const AdminEvents = ({
             }
         </div>
     </section>
+    </div>
 
 }
 
