@@ -13,6 +13,7 @@ export const SET_USERS = makeType('SET_USERS')
 export const BLOCK_USER = makeType('BLOCK_USER')
 export const SET_IS_LOADING = makeType('SET_IS_LOADING')
 export const SET_ERROR = makeType('SET_ERROR')
+export const ADD_USER = makeType('ADD_USER')
 
 export default (state = initialState, action) => {
     const {
@@ -44,6 +45,12 @@ export default (state = initialState, action) => {
                 ...state
             }
         }
+        case ADD_USER: {
+            return {
+                ...state,
+                users: [payload, ...state.users]
+            }
+        }
         default: {
             return state
         }
@@ -61,6 +68,11 @@ export const setError = (errorMsg) => ({
 export const setUsers = (users = []) => ({
     type: SET_USERS,
     payload: users,
+})
+
+export const addUser = (user) => ({
+    type: ADD_USER,
+    payload: user,
 })
 
 export const blockUser = (user) => ({

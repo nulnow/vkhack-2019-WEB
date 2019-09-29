@@ -16,6 +16,7 @@ import connection from '../connection'
 import Admin from './Admin';
 import { reloadEvents } from '../store/reducers/eventsReducer'
 import { reloadMuseums } from '../store/reducers/museumsReducer'
+import NotificationsContainer from './NotificationsContainer'
 
 const mapStateToProps = state => ({
 
@@ -48,7 +49,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
         reloadEvents()
 
         if (localStorage.token) {
-            connection.emit('AUTHORIZE', localStorage.loken)
+            console.log('emiting AUTHORIZE')
+            console.log({token: localStorage.token})
+            connection.emit('AUTHORIZE', {token: localStorage.token})
         }
     }, [])
     if (window.location.pathname === '/admin') {
@@ -57,6 +60,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
 
     return <React.Fragment>
         <div className="fake-body">
+            <NotificationsContainer/>
             <Navbar />
             <Switch>
                 <Route exact path={PAGES.HOME_PAGE} component={MainPage} />

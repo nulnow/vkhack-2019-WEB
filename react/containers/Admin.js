@@ -9,6 +9,8 @@ import AdminEvents from '../components/AdminPanel/AdminEvents'
 import AdminRequests from '../components/AdminPanel/AdminRequest';
 import { logout } from '../requests';
 import { setToken } from '../helpers/general';
+import Notification from '../components/Notification'
+import NotificationsContainer from './NotificationsContainer'
 
 const mapStateToProps = state => ({
     users: state.users,
@@ -38,6 +40,7 @@ export default withRouter(connect(mapStateToProps)(({
     }
 
     return <div>
+        <NotificationsContainer />
         <div className="left-nav left-nav--shown" >
             <div className="top-left-nav-wrapper">
                 <div className="museum-details">
