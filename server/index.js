@@ -17,8 +17,11 @@ const morgan = require('morgan')
 const fs = require('fs')
 
 const validateToken = (token) => new Promise((resolve, reject) => {
+    console.log({token})
     jwt.verify(token, process.env.SECRET_KEY, (error, verificationResult) => {
         if (error) {
+            console.log('validateToken')
+            console.log({error})
             return reject()
         }
         resolve(verificationResult)
@@ -35,6 +38,8 @@ const {
 const apiRouter = require('./routes/api')
 
 const push = (tokens, payload, data = {}) => {
+    console.log('sending push')
+    console.log({tokens, payload})
     let messages = []
     tokens.forEach(token => {
         messages.push({
@@ -139,15 +144,18 @@ getClient()
                 sockets = sockets.filter(s => s !== socket)
             })
             socket.on('SEND_MESSAGE', ({ email, message }) => {
-
+                EventEmitter.emit('USER_NOTIFY', {email, message})
             })
-            socket.on('AUTHORIZE', async (token) => {
-                console.log('on AUTHORIZE')
+            socket.on('AUTHORIZE', async ({token}) => {
+                console.log('got AUTHORIZE')
 
+                console.log({token})
                 let parsedToken
                 try {
                     parsedToken = await validateToken(token)
+                    console.log({parsedToken})
                 } catch(err) {
+                    console.log('failed to validate token')
                     return
                 }
                 const user = db.findOneInCollection('users', {email: parsedToken.email})
@@ -158,8 +166,10 @@ getClient()
             })
         })
 
-        EventEmitter.subscribe(EventEmitter.TYPES.USER_NOTIFY, async (email, message) => {
+        EventEmitter.subscribe(EventEmitter.TYPES.USER_NOTIFY, async ({email, message}) => {
+            console.log('EVENT EMITTER ON USER_NOTIFY')
             const userConnections = sockets.filter(s => s.email === email)
+            console.log({userConnections})
             if (userConnections && userConnections.length) {
                 userConnections.forEach(connection => {
                     connection.emit(EventEmitter.TYPES.USER_NOTIFY, message)
@@ -168,9 +178,14 @@ getClient()
             const user = await db.findOneInCollection('users', {email})
             if (!user) return
             const { token } = user
-            if (!token || !Expo.isExpoPushToken(token)) return
+            console.log({ token })
+            if (!token || !Expo.isExpoPushToken(token)) {
+                console.log('token is invalid')
+                return
+            }
+
             push([token], {
-                body: message
+                title: message
             })
         })
 
