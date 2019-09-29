@@ -42,9 +42,15 @@ export default (state = initialState, action) => {
             }
         }
         case SET_EVENTS: {
+            let requests = action.payload
+                .filter(el => el.requestUserIds.length)
+                .map(e => e.requestUserIds.map(r => ({...r, event: e })))
+                .flat(1)
+
             return {
                 ...state,
                 events: action.payload,
+                requests
             }
         }
         case ADD_EVENT: {

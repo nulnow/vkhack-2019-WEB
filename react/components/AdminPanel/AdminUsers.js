@@ -128,7 +128,12 @@ const AdminUsers = ({ isLoading, users, error }) => {
 
 
             <h2>Волонтёры</h2>
-            <input type="text" onChange={ handleFilterChange } className="input-txt" placeholder="Имя, фамилия.."/>
+
+            <div className="input-txt fake-select"><select className="hide-select">
+                <option>Пункт 1</option>
+                <option>Пункт 2</option>
+            </select></div>
+
             <div id="add-user" onClick={ openAddUserModal }><span className="plus">+</span></div>
 
 

@@ -6,15 +6,20 @@ import { connect } from 'react-redux'
 import { preloadUsers } from '../store/reducers/usersReducer';
 import AdminUsers from '../components/AdminPanel/AdminUsers'
 import AdminEvents from '../components/AdminPanel/AdminEvents'
+import AdminRequests from '../components/AdminPanel/AdminRequest';
+import { logout } from '../requests';
+import { setToken } from '../helpers/general';
 import Notification from '../components/Notification'
 import NotificationsContainer from './NotificationsContainer'
 
 const mapStateToProps = state => ({
-    ...state.users,
+    users: state.users,
+    events: state.events,
+    requests: state.events.requests
 })
 
-export default connect(mapStateToProps)(({
-    isLoading, error, users, dispatch
+export default withRouter(connect(mapStateToProps)(({
+    events, requests, users, dispatch, history
 }) => {
     const [page, setPage] = useState('users')
     const pages = [
@@ -26,6 +31,13 @@ export default connect(mapStateToProps)(({
     useEffect(() => {
         dispatch(preloadUsers())
     }, [])
+
+    const onLogoutClick = () => {
+        logout()
+            .then(res => console.log('kekekekekekekkekekekekekeek'))
+        setToken(null)
+        history.push('/login')
+    }
 
     return <div>
         <NotificationsContainer />
@@ -48,20 +60,22 @@ export default connect(mapStateToProps)(({
                     >
                         {p.title}
                     </li>
-                )
-                )}
+                ))}
                 <hr />
-                <li>Выход</li>
+                <li onClick={onLogoutClick}>Выход</li>
             </ul>
         </div>
         {/*-========================== { LEFT NAV END } ====================------*/}
         {(() => {
             switch (page) {
                 case 'users':
-                    return <AdminUsers {...{ isLoading, users, error }} />
+                    return <AdminUsers {...users} />
                 case 'events':
-                    return <AdminEvents />
+                    return <AdminEvents {...events} />
+                case 'requests':
+                    return <AdminRequests {...{requests, isLoading: events.eventsAreLoading}} />
+                default: return null
             }
         })()}
     </div>
-})
+}))
