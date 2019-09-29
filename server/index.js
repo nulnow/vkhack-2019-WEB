@@ -1,7 +1,12 @@
+
 process.env.SECRET_KEY='f3fj3f093209329f329ru249ty2y248t924u9t834'
 process.env.DATABASE_URL = 'mongodb+srv://user:bSmPPoXqyB1QjFmb@cluster0-sxmmm.mongodb.net/test?retryWrites=true&w=majority'
 process.env.DATABASE_NAME = 'test'
 process.env.PORT=8888
+
+const { authenticationIsRequiredAPI } = require('./middlewares/authenticationIsRequired')
+
+
 
 const express = require('express')
 const http = require('http')
@@ -136,7 +141,7 @@ getClient()
         })
 
         EventEmitter.subscribe('REQUEST_ACCEPTED', ({email, eventTitle}) => {
-            EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, ({ email, message: eventTitle }))
+            EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, ({ email, message: `Заявка принята: ${eventTitle}` }))
         })
 
         io.on('connection', socket => {
@@ -191,6 +196,23 @@ getClient()
             push([token], {
                 title: message
             })
+        })
+
+        app.post('/api/profile', authenticationIsRequiredAPI, async (req, res) => {
+            const { email } = req.user
+            const changes = req.body
+
+            if (changes.password) delete changes.password
+            if (changes.email) delete changes.email
+            if (changes.isAdmin) delete changes.isAdmin
+            if (changes.isBlocked) delete changes.isBlocked
+            if (changes.requested_events_ids) delete changes.requested_events_ids
+            if (changes.accepted_requested_events_ids) delete changes.accepted_requested_events_ids
+            if (changes._id) delete changes._id
+
+            const user = await db.findOneInCollection('users', { email })
+            await db.updateOneInCollection('users', { email }, { ...user, ...changes })
+            return res.status(200).json({})
         })
 
         server.listen(process.env.PORT, '0.0.0.0', () => {

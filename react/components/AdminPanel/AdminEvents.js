@@ -37,7 +37,7 @@ const AdminEvents = ({
                             <p className="date">{toDateTimeString(event.date)}</p>
                             <p className="description">На лекции расскажем и покажем вам о том, как образуются нейтрино. А также расскажем о парадоксальных и удивительных результатах экспериментов с участием этих элементарных частиц.</p>
                         </div>
-                        <div className="btn-container"><button className="btn">Подать заявку</button></div>
+                        {/*<div className="btn-container"><button className="btn">Подать заявку</button></div>*/}
                     </div>
                 })
             }

@@ -17,6 +17,7 @@ import Admin from './Admin';
 import { reloadEvents } from '../store/reducers/eventsReducer'
 import { reloadMuseums } from '../store/reducers/museumsReducer'
 import NotificationsContainer from './NotificationsContainer'
+import MuseumsPage from './MuseumsPage'
 
 const mapStateToProps = state => ({
 
@@ -68,6 +69,7 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
                 <Route exact path={PAGES.LOGIN_PAGE} component={LoginPage} />
                 <Route exact path={PAGES.REGISTER_PAGE} component={RegisterPage} />
                 <Route exact path={PAGES.EVENTS_PAGE} component={EventsPage} />
+                <Route exact path={PAGES.MUSEUMS_PAGE} component={MuseumsPage} />
             </Switch>
         </div>
     </React.Fragment>

@@ -50,6 +50,7 @@ const ProfilePage = ({
         bio,
         events,
         qrcode,
+        rating,
     } = profile
 
 
@@ -115,9 +116,9 @@ const ProfilePage = ({
                                     <div className="col">
                                         <p className="info__type">Рейтинг</p>
                                     </div>
-                                    <div className="col right"><p className="info__type rating">5</p></div>
+                                    <div className="col right"><p className="info__type rating">{rating || 0}</p></div>
                                 </div>
-                                <input type="range" disabled="true" min="0" max="20" value="5" />
+                                <input type="range" disabled="true" min="0" max="20" value={rating || 0} />
                                 <div className="qr-container">
                                     <img className="qr-code" src={qrcode} alt="qrcode"/>
                                 </div>

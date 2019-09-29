@@ -13,6 +13,7 @@ export default ({
                     makeRequest = null,
                     isRequested = false,
                     isAccepted = false,
+                    showButton = true,
                 }) => {
 
     return <div className="row event__card">
@@ -23,17 +24,20 @@ export default ({
             <p className="description">{ description }</p>
         </div>
         <div className="btn-container">
-            <button className="btn" disabled={isRequested} onClick={() => {
-                makeRequest(_id)
-            }}>
-                {
-                    isAccepted
-                        ? 'Одобрена'
-                        : (
-                            isRequested ? 'Заявка подана' : 'Подать заявку'
-                        )
-                }
-            </button>
+            {
+                showButton &&<button className="btn" disabled={isRequested} onClick={() => {
+                    makeRequest(_id)
+                }}>
+                    {
+                        isAccepted
+                            ? 'Одобрена'
+                            : (
+                                isRequested ? 'Заявка подана' : 'Подать заявку'
+                            )
+                    }
+                </button>
+            }
+
         </div>
     </div>
 }

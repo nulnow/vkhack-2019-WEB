@@ -23,13 +23,13 @@ router.get('/', async (req, res) => {
     })
 
 })
-
-router.post('/', async (req, res) => {
-    const { email } = req.user
-    const changes = req.body
-    const user = await findOneInCollection('users', { email })
-    await updateOneInCollection('users', { email }, { ...user, ...changes })
-    return res.status(200).json({ url })
-})
+//
+// router.post('/', async (req, res) => {
+//     const { email } = req.user
+//     const changes = req.body
+//     const user = await findOneInCollection('users', { email })
+//     await updateOneInCollection('users', { email }, { ...user, ...changes })
+//     return res.status(200).json({ url })
+// })
 
 module.exports = router

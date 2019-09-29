@@ -101,8 +101,9 @@ router.get('/events', async (req, res) => {
         return
     }
     if (req.user) {
+        console.log('here2')
         const user = await db.findOneInCollection('users', { email: req.user.email })
-        const requested = user.requested_events_ids.map(o => o.toString())
+        const requested = (user.requested_events_ids || []).map(o => o.toString())
         events = events.map(event => {
             if (requested.indexOf(event._id.toString()) !== -1) {
                 return {
@@ -205,28 +206,5 @@ router.post('/admin/reject-user', async (req, res) => {
     }
 })
 
-router.get('/d', async (req, res) => {
-    for(let i = 0; i < 37; i++) {
-        db.deleteOneInCollection('events', {})
-    }
-})
-
-router.get('/i', async (req, res) => {
-
-    let events = []
-
-    for(let i = 0; i<7; i++) {
-        events.push({
-            title: '"Оборотни" микромира', //required
-            date: new Date().getTime(), //required
-            description: 'На лекции расскажем и покажем вам о том, как образуются нейтрино. А также расскажем о парадоксальных и удивительных результатах экспериментов с участием этих элементарных частиц.', //required
-            userIds: [],
-            requestUserIds: [],
-            maximumUsers: 20,
-            minimumUsers: 5
-        })
-    }
-    db.insertManyIntoCollection('events', events)
-})
 
 module.exports = router

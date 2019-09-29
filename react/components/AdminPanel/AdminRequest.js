@@ -4,6 +4,7 @@ import { API_URL } from '../../URLS'
 import { setEvents } from '../../store/reducers/eventsReducer'
 import store from '../../store'
 import { addNotification } from '../../store/reducers/notificationsReducer'
+import Loader from '../Loader'
 
 const AdminRequests = ({
     isLoading, requests, dispatch

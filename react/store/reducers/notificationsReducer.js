@@ -1,18 +1,14 @@
 const mockNotifications = [
     {
         id: '123321',
-        title: 'Регистрация прошла успешно!',
-        description: 'Удачного волонтёрства :)))',
+        title: 'Удачного волонтёрства :)))',
+        description: '(системное)',
     },
-    {
-        id: '3212131',
-        title: 'Политехнический музей организует выставку',
-    }
 ]
 
 const initialState = {
     notifications: [
-        ...mockNotifications
+        // ...mockNotifications
     ]
 }
 

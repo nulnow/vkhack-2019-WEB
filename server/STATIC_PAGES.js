@@ -7,4 +7,5 @@ module.exports = [
     '/events',
     '/my-events',
     '/notifications',
+    '/museums',
 ]

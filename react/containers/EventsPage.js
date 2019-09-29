@@ -33,10 +33,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
     }, [])
 
     const makeRequest = _id => {
-        alert('13')
         makeRequestRequest(_id)
             .then(r => {
-
+                reloadEvents()
             })
     }
 

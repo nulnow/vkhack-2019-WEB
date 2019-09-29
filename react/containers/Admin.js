@@ -46,8 +46,8 @@ export default withRouter(connect(mapStateToProps)(({
                 <div className="museum-details">
                     <img src="/img/politeh_avatar.png" alt />
                     <div className="museum-details__texts">
-                        <h3>Музей</h3>
-                        <p>Какое-то описание</p>
+                        <h3>Политех</h3>
+                        <p>Администратор</p>
                     </div>
                 </div>
             </div>

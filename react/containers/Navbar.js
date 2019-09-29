@@ -51,9 +51,11 @@ export default connect((state) => {
                         </NavLink >
                     </div>
                     <div className="col">
-                        <NavLink exact className={'menu-element'} activeClassName={'menu-element active'}  to={'/ы'}>
-                            ы
-                        </NavLink >
+                        {
+                            profile.profile.isAdmin && <NavLink exact className={'menu-element'} activeClassName={'menu-element active'}  to={'/admin'}>
+                                Управление
+                            </NavLink >
+                        }
                     </div>
                     <div className="col">
                         {
