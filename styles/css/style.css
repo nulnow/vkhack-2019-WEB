@@ -230,6 +230,30 @@ section {
 
 }
 
+.notification-body {
+    display: block;
+    padding: 38px;
+    border-radius: 18px;
+    margin: 38px 0px 0px 38px;
+    bottom: 0;
+    transition: all .25s ease-in-out;
+    animation: loadevent ease-in-out .55s;
+}
+
+.notification-body p {
+    font-size: 14px;
+    opacity: .7;
+    margin-top: 14px;
+}
+
+.close-notification {
+    background-color: transparent;
+    color: #5F3EFF;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+}
+
 .event__card {
     position: relative;
     overflow: hidden;

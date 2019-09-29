@@ -1,11 +1,11 @@
 
 export const notificationComponentStyles = {
     position: 'relative',
-    backgroundColor: '#212121',
+    backgroundColor: '#2C2C2C',
     color: 'white',
     borderRadius: 16,
-    width: '100%',
-    height: 90,
+    width: '350px',
+    height: 'fit-content',
     display: 'flex',
     flexFlow: 'row nowrap',
     justifyContent: 'flex-start',
@@ -15,8 +15,9 @@ export const notificationComponentStyles = {
 
 export const notificationDeleteButtonStyles = {
     position: 'absolute',
-    top: 10,
-    right: 10,
+    top: 20,
+    right: 20,
+    fontSize: 18,
 }
 
 export const notificationContentStyles = {
