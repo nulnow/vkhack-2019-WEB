@@ -68,6 +68,18 @@ router.get('/users', onyForAdmin, (req, res) => {
         })
 })
 
+router.post('/admin/ban', async (req, res) => {
+    const {
+        userId
+    } = req.body
+
+    const user = await db.findOneInCollectionByObjectId('users', userId)
+    if (!user) return res.sendStatus(400)
+
+    await updateOneInCollectionByObjectId('users', userId, { isBlocked: true })
+    res.sendStatus(200)
+})
+
 
 router.get('/events', async (req, res) => {
     let events = await db.listCollection('events')
@@ -104,8 +116,12 @@ router.get('/events', async (req, res) => {
         console.log('here2')
         const user = await db.findOneInCollection('users', { email: req.user.email })
         const requested = (user.requested_events_ids || []).map(o => o.toString())
+        console.log({requested})
         events = events.map(event => {
+            console.log(event._id)
+            console.log(requested.indexOf(event._id.toString()) !== -1)
             if (requested.indexOf(event._id.toString()) !== -1) {
+                console.log(requested.indexOf(event._id.toString()) !== -1)
                 return {
                     ...event,
                     isRequested: true

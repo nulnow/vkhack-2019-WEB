@@ -2,6 +2,10 @@ import React, { useState } from 'react'
 import Loader from './../Loader'
 import connection from '../../connection'
 import { register } from '../../requests'
+import { postJson } from '../../helpers/network'
+import { API_URL } from '../../URLS'
+import store from '../../store'
+import { setUsers } from '../../store/reducers/usersReducer'
 
 const getEmptyUser = () => ({
     firstName: '',
@@ -87,6 +91,19 @@ const AdminUsers = ({ isLoading, users, error }) => {
         }
     }
 
+    const TUPO_BAN = user => () => {
+        postJson(`${API_URL}/admin/ban`, {
+            userId: user._id
+        }).then(() => {
+            store.dispatch(setUsers(users.map(u => u._id === user._id
+                ? {
+                ...u,
+                    isBlocked: true
+                } : u
+            )))
+        })
+    }
+
     let filteredUsers = filter
         ? (users || []).filter(user => user.firstName.toLowerCase()
             .includes(filter.toLowerCase()) || user.lastName.toLowerCase()
@@ -153,7 +170,7 @@ const AdminUsers = ({ isLoading, users, error }) => {
                                 <p>{ user.email }</p>
                             </div>
                             <div className="col">
-                                {!user.isBlocked && <img src="/img/ban.svg"  alt className="edit__user"/>}
+                                {!user.isBlocked && <img src="/img/ban.svg" onClick={TUPO_BAN(user)} alt className="edit__user"/>}
                                 <img src="/img/edit.svg" onClick={() => openEditUserModal(user)} alt className="edit__user"/>
                                 <button className="btn" onClick={ () => {
                                     let message = prompt('Введите сообщение')
