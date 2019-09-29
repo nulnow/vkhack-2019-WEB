@@ -153,7 +153,7 @@ const AdminUsers = ({ isLoading, users, error }) => {
                                 <p>{ user.email }</p>
                             </div>
                             <div className="col">
-                                <img src="/img/ban.svg"  alt className="edit__user"/>
+                                {!user.isBlocked && <img src="/img/ban.svg"  alt className="edit__user"/>}
                                 <img src="/img/edit.svg" onClick={() => openEditUserModal(user)} alt className="edit__user"/>
                                 <button className="btn" onClick={ () => {
                                     let message = prompt('Введите сообщение')

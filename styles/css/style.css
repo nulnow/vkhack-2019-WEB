@@ -230,8 +230,6 @@ section {
 
 }
 
-<<<<<<< HEAD
-=======
 .notification-body {
     display: block;
     padding: 38px;
@@ -274,7 +272,7 @@ section {
     cursor: pointer;
 }
 
->>>>>>> 18ec857834328fd8b66b754d89af97dfe8582a8b
+
 .event__card {
     position: relative;
     overflow: hidden;
