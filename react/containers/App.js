@@ -49,7 +49,9 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
         reloadEvents()
 
         if (localStorage.token) {
-            connection.emit('AUTHORIZE', localStorage.loken)
+            console.log('emiting AUTHORIZE')
+            console.log({token: localStorage.token})
+            connection.emit('AUTHORIZE', {token: localStorage.token})
         }
     }, [])
     if (window.location.pathname === '/admin') {

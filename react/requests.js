@@ -50,7 +50,6 @@ export const register = (model) =>
     new Promise((resolve, reject) =>
         postJson(REGISTER_URL, model)
             .then(response => {
-            debugger
                 if (response.status === 200) return response.json()
 
                 throw new Error('Не удаётся зарегистрироваться((((((((((')

@@ -71,21 +71,45 @@ router.get('/users', onyForAdmin, (req, res) => {
 
 router.get('/events', async (req, res) => {
     let events = await db.listCollection('events')
+    if (req.user && req.user.isAdmin) {
+        const users = await db.listCollection('users')
+        const events = await db.listCollection('events')
+
+        users.forEach(user => {
+            if (user.requested_events_ids && user.requested_events_ids.length) {
+                user.requested_events_ids.forEach(eventID => {
+                    events.forEach(e => {
+                        if (e._id.toString() === eventID) {
+                            e.requestUserIds = [...(e.requestUserIds || []), user]
+                        }
+                    })
+                })
+            }
+
+            if (user.accepted_requested_events_ids && user.accepted_requested_events_ids.length) {
+                user.accepted_requested_events_ids.forEach(eventID => {
+                    events.forEach(e => {
+                        if (e._id.toString() === eventID) {
+                            e.userIds = [...(e.userIds || []), user]
+                        }
+                    })
+                })
+            }
+        })
+
+        res.json(events)
+        return
+    }
     if (req.user) {
         const user = await db.findOneInCollection('users', { email: req.user.email })
-        console.log(user)
         const requested = user.requested_events_ids.map(o => o.toString())
         events = events.map(event => {
-            console.log(event._id.toString())
             if (requested.indexOf(event._id.toString()) !== -1) {
-                console.log(true)
                 return {
                     ...event,
                     isRequested: true
                 }
             } else {
-                console.log(false)
-
                 return {
                     ...event,
                     isRequested: false,
@@ -114,34 +138,9 @@ router.get('/make-request/:objectId', authenticationIsRequiredAPI, async (req, r
     res.status(200).json(user)
 })
 
-router.get('/admin/events', async (req, res) => {
-    const users = await db.listCollection('users')
-    const events = await db.listCollection('events')
-
-    users.forEach(user => {
-        if (user.requested_events_ids && user.requested_events_ids.length) {
-            user.requested_events_ids.forEach(eventID => {
-                events.forEach(e => {
-                    if (e._id.toString() === eventID) {
-                        e.requestUserIds = [...(e.requestUserIds || []), user]
-                    }
-                })
-            })
-        }
-
-        if (user.accepted_requested_events_ids && user.accepted_requested_events_ids.length) {
-            user.accepted_requested_events_ids.forEach(eventID => {
-                events.forEach(e => {
-                    if (e._id.toString() === eventID) {
-                        e.userIds = [...(e.userIds || []), user]
-                    }
-                })
-            })
-        }
-    })
-
-    res.json(events)
-})
+// router.get('/admin/events', async (req, res) => {
+//
+// })
 
 router.post('/admin/accept-user', async (req, res) => {
     const {
@@ -201,7 +200,7 @@ router.post('/admin/reject-user', async (req, res) => {
         await updateOneInCollectionByObjectId('users', user._id, user)
         res.status(200).json({message: 'ok'})
 
-        // EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, (user.email, '')
+        EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, (user.email, 'f'))
     }
 })
 
