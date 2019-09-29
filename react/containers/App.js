@@ -55,11 +55,10 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
             connection.emit('AUTHORIZE', {token: localStorage.token})
         }
     }, [])
-    if (window.location.pathname === '/admin') {
-        return <Admin />
-    }
 
     return <React.Fragment>
+        <Switch>
+            <Route exact path={PAGES.ADMIN_PAGE} component={Admin} />
         <div className="fake-body">
             <NotificationsContainer/>
             <Navbar />
@@ -72,5 +71,6 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
                 <Route exact path={PAGES.MUSEUMS_PAGE} component={MuseumsPage} />
             </Switch>
         </div>
+        </Switch>
     </React.Fragment>
 })
