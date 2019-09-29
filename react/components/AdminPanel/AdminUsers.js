@@ -6,6 +6,7 @@ import { postJson } from '../../helpers/network'
 import { API_URL } from '../../URLS'
 import store from '../../store'
 import { setUsers } from '../../store/reducers/usersReducer'
+import { addNotification } from '../../store/reducers/notificationsReducer'
 
 const getEmptyUser = () => ({
     firstName: '',
@@ -101,6 +102,25 @@ const AdminUsers = ({ isLoading, users, error }) => {
                     isBlocked: true
                 } : u
             )))
+            store.dispatch(addNotification({
+                title: 'Пользователь отключен от системы'
+            }))
+        })
+    }
+
+    const TUPO_NE_BAN = user => () => {
+        postJson(`${API_URL}/admin/razban`, {
+            userId: user._id
+        }).then(() => {
+            store.dispatch(setUsers(users.map(u => u._id === user._id
+                ? {
+                ...u,
+                    isBlocked: false
+                } : u
+            )))
+            store.dispatch(addNotification({
+                title: 'Пользователь подключен к системе'
+            }))
         })
     }
 
@@ -171,6 +191,7 @@ const AdminUsers = ({ isLoading, users, error }) => {
                             </div>
                             <div className="col">
                                 {!user.isBlocked && <img src="/img/ban.svg" onClick={TUPO_BAN(user)} alt className="edit__user"/>}
+                                {user.isBlocked && <img width={30} src="http://www.pngmart.com/files/7/Undo-Transparent-PNG.png" onClick={TUPO_NE_BAN(user)} alt className="edit__user"/>}
                                 <img src="/img/edit.svg" onClick={() => openEditUserModal(user)} alt className="edit__user"/>
                                 <button className="btn" onClick={ () => {
                                     let message = prompt('Введите сообщение')

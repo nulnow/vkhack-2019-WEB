@@ -81,6 +81,19 @@ router.post('/admin/ban', async (req, res) => {
     EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, {email: user.email, message: 'БАН' })
 })
 
+router.post('/admin/razban', async (req, res) => {
+    const {
+        userId
+    } = req.body
+
+    const user = await db.findOneInCollectionByObjectId('users', userId)
+    if (!user) return res.sendStatus(400)
+
+    await updateOneInCollectionByObjectId('users', userId, { isBlocked: false })
+    res.sendStatus(200)
+    EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, {email: user.email, message: 'Вы были подключены к системе' })
+})
+
 
 router.get('/events', async (req, res) => {
     let events = await db.listCollection('events')
