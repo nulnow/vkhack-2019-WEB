@@ -41,7 +41,7 @@ router.post('/register', async (req, res) => {
 
     try {
         if(await findOneInCollection('users', {email})) {
-            return res.status(400).json({error: 'USER_REGISTEREDПользователь с такие емейлом уже существует'})
+            return res.status(400).json({error: 'Пользователь с такие емейлом уже существует'})
         }
     } catch (e) {
         return res.sendStatus(500).json({ error: 'Падение при проверке на уникальность мейла' })
