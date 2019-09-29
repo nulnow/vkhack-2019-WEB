@@ -12,7 +12,7 @@ const mockNotifications = [
 
 const initialState = {
     notifications: [
-        //...mockNotifications
+        ...mockNotifications
     ]
 }
 

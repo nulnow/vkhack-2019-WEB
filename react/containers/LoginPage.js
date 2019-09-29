@@ -5,6 +5,7 @@ import { setToken } from '../helpers/general'
 import { reloadProfile } from '../store/reducers/profileReducer'
 import { connect } from 'react-redux'
 import { Link, NavLink } from 'react-router-dom'
+import connection from '../connection'
 
 class LoginPage extends React.Component {
     constructor(props) {
@@ -24,6 +25,7 @@ class LoginPage extends React.Component {
         })
             .then(response => {
                 setToken(response)
+                connection.emit('AUTHORIZE', {token: response})
                 this.props.reloadProfile()
                 this.setState({ redirectUrl: '/profile' })
             })

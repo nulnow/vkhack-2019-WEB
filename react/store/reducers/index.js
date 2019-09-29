@@ -1,7 +1,14 @@
 import { combineReducers } from 'redux'
+import eventsReducer from './eventsReducer'
 import profileReducer from './profileReducer'
-import usersReduser from './usersReducer'
+import notificationsReducer from './notificationsReducer'
+import museumsReducer from './museumsReducer'
+import usersReducer from './usersReducer'
+
 export  default combineReducers({
-    users: usersReduser,
+    events: eventsReducer,
     profile: profileReducer,
+    notifications: notificationsReducer,
+    museums: museumsReducer,
+    users: usersReducer,
 })

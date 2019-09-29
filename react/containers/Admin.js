@@ -8,7 +8,7 @@ import AdminUsers from '../components/AdminPanel/AdminUsers'
 import AdminEvents from '../components/AdminPanel/AdminEvents'
 
 const mapStateToProps = state => ({
-    ...state.users
+    ...state.users,
 })
 
 export default connect(mapStateToProps)(({

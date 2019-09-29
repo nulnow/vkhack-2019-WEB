@@ -1,16 +1,17 @@
 import React, {  useState } from 'react'
 import Loader from './../Loader';
+import connection from '../../connection'
 
 const AdminUsers = ({isLoading, users, error}) => {
 
     const [filter, setFilter] = useState(null)
-
+    
     const handleFilterChange = (e) => {
         setFilter(e.target.value)
     }
 
     let filteredUsers = filter
-        ? users.filter(user => user.firstName.toLowerCase().includes(filter.toLowerCase()) || user.lastName.toLowerCase().includes(filter.toLowerCase()))
+        ? (users || []).filter(user => user.firstName.toLowerCase().includes(filter.toLowerCase()) || user.lastName.toLowerCase().includes(filter.toLowerCase()))
         : users
 
     return <div className="admin-container">
@@ -20,7 +21,7 @@ const AdminUsers = ({isLoading, users, error}) => {
 
         {isLoading 
             ? <Loader />
-            : filteredUsers.map(user => {
+            : (filteredUsers || []).map(user => {
                 return <div key={user._id} className="user__card">
                     <div className="row txt-data">
                         <div className="col">
@@ -36,7 +37,13 @@ const AdminUsers = ({isLoading, users, error}) => {
                         <div className="col">
                             <img src="/img/ban.svg" alt className="edit__user" />
                             <img src="/img/edit.svg" alt className="edit__user" />
-                            <button className="btn">Написать</button>
+                            <button className="btn" onClick={() => {
+                                let message = prompt('Введите сообщение')
+                                connection.emit('SEND_MESSAGE', {
+                                    email: user.email,
+                                    message,
+                                })
+                            }}>Написать</button>
                         </div>
                     </div>
                 </div>

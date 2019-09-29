@@ -12,6 +12,18 @@ const STATIC_PAGES = require('./STATIC_PAGES')
 const path = require('path')
 const EventEmitter = require('./general/EventEmitter')
 const db = require('./database/client')
+const jwt = require('jsonwebtoken')
+const morgan = require('morgan')
+const fs = require('fs')
+
+const validateToken = (token) => new Promise((resolve, reject) => {
+    jwt.verify(token, process.env.SECRET_KEY, (error, verificationResult) => {
+        if (error) {
+            return reject()
+        }
+        resolve(verificationResult)
+    })
+})
 
 const { Expo } = require('expo-server-sdk')
 const expo = new Expo()
@@ -42,6 +54,23 @@ const push = (tokens, payload, data = {}) => {
     })()
 }
 
+const notifyUser = async (sockets, email, message) => {
+    const user = await db.findOneInCollection('users', {email})
+    if (!user) {
+        console.log('no user with email ' + email)
+        return
+    }
+    if (!Expo.isExpoPushToken(user.token)) {
+        console.log('пуш плохой')
+        return
+    }
+    push([user.token], {
+        title: message,
+    })
+
+
+}
+
 getClient()
     .then(async c => {
         const app = express()
@@ -59,6 +88,11 @@ getClient()
         app.options('*', (req, res) => {
             res.sendStatus(200)
         })
+
+        app.use(morgan('common'))
+        app.use(morgan('common', { stream: fs.createWriteStream(path.join(__dirname, 'access.log'), { flags: 'a' }) }))
+
+
         ;STATIC_PAGES.forEach(route => {
             app.get(route, (req, res) => {
                 res.render('prod.ejs', {title: 'kek'})
@@ -83,6 +117,60 @@ getClient()
             push([user.token], {
                 title: '(БАН) Бан по причине (причина)',
                 type: 'BAN'
+            })
+        })
+
+        let sockets = []
+
+        EventEmitter.subscribe(EventEmitter.TYPES.USER_REGISTERED, user => {
+            sockets.filter(s => s.isAdmin)
+                .forEach(s => {
+                    s.emit(EventEmitter.TYPES.USER_REGISTERED, user)
+                })
+        })
+
+
+
+        io.on('connection', socket => {
+            console.log('!CONNECTED!')
+            sockets = [...sockets, socket]
+            console.log('sockets: ' + sockets.length)
+            socket.on('disconnect', () => {
+                sockets = sockets.filter(s => s !== socket)
+            })
+            socket.on('SEND_MESSAGE', ({ email, message }) => {
+
+            })
+            socket.on('AUTHORIZE', async (token) => {
+                console.log('on AUTHORIZE')
+
+                let parsedToken
+                try {
+                    parsedToken = await validateToken(token)
+                } catch(err) {
+                    return
+                }
+                const user = db.findOneInCollection('users', {email: parsedToken.email})
+                socket.email = parsedToken.email
+                socket.isAdmin = !!user.isAdmin
+                console.log('!AUTHORIZED!', + ' ' + socket.email + ' isAdmin ' + socket.isAdmin)
+
+            })
+        })
+
+        EventEmitter.subscribe(EventEmitter.TYPES.USER_NOTIFY, async (email, message) => {
+            const userConnections = sockets.filter(s => s.email === email)
+            if (userConnections && userConnections.length) {
+                userConnections.forEach(connection => {
+                    connection.emit(EventEmitter.TYPES.USER_NOTIFY, message)
+                })
+            }
+            const user = await db.findOneInCollection('users', {email})
+            if (!user) return
+            const { token } = user
+            if (!token || !Expo.isExpoPushToken(token)) return
+            push([token], {
+                body: message
             })
         })
 
