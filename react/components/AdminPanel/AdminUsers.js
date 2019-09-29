@@ -82,10 +82,10 @@ const AdminUsers = ({ isLoading, users, error }) => {
 
             <h2>Волонтёры</h2>
 
-            <select className="input-txt">
+            <div className="input-txt fake-select"><select className="hide-select">
                 <option>Пункт 1</option>
                 <option>Пункт 2</option>
-            </select>
+            </select></div>
 
             <div id="add-user" onClick={ openAddUserModal }><span className="plus">+</span></div>
 
