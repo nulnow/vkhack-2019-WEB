@@ -78,6 +78,7 @@ router.post('/admin/ban', async (req, res) => {
 
     await updateOneInCollectionByObjectId('users', userId, { isBlocked: true })
     res.sendStatus(200)
+    EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, {email: user.email, message: 'БАН' })
 })
 
 
