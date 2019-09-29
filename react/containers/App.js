@@ -59,18 +59,18 @@ export default connect(mapStateToProps, mapDispatchToProps)(({
     return <React.Fragment>
         <Switch>
             <Route exact path={PAGES.ADMIN_PAGE} component={Admin} />
-        <div className="fake-body">
-            <NotificationsContainer/>
-            <Navbar />
-            <Switch>
-                <Route exact path={PAGES.HOME_PAGE} component={MainPage} />
-                <Route exact path={PAGES.PROFILE_PAGE} component={ProfilePage} />
-                <Route exact path={PAGES.LOGIN_PAGE} component={LoginPage} />
-                <Route exact path={PAGES.REGISTER_PAGE} component={RegisterPage} />
-                <Route exact path={PAGES.EVENTS_PAGE} component={EventsPage} />
-                <Route exact path={PAGES.MUSEUMS_PAGE} component={MuseumsPage} />
-            </Switch>
-        </div>
+            <div className="fake-body">
+                <NotificationsContainer/>
+                <Navbar />
+                <Switch>
+                    <Route exact path={PAGES.HOME_PAGE} component={MainPage} />
+                    <Route exact path={PAGES.PROFILE_PAGE} component={ProfilePage} />
+                    <Route exact path={PAGES.LOGIN_PAGE} component={LoginPage} />
+                    <Route exact path={PAGES.REGISTER_PAGE} component={RegisterPage} />
+                    <Route exact path={PAGES.EVENTS_PAGE} component={EventsPage} />
+                    <Route exact path={PAGES.MUSEUMS_PAGE} component={MuseumsPage} />
+                </Switch>
+            </div>
         </Switch>
     </React.Fragment>
 })
