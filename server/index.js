@@ -54,6 +54,23 @@ const push = (tokens, payload, data = {}) => {
     })()
 }
 
+const notifyUser = async (sockets, email, message) => {
+    const user = await db.findOneInCollection('users', {email})
+    if (!user) {
+        console.log('no user with email ' + email)
+        return
+    }
+    if (!Expo.isExpoPushToken(user.token)) {
+        console.log('пуш плохой')
+        return
+    }
+    push([user.token], {
+        title: message,
+    })
+
+
+}
+
 getClient()
     .then(async c => {
         const app = express()
@@ -120,6 +137,9 @@ getClient()
             console.log('sockets: ' + sockets.length)
             socket.on('disconnect', () => {
                 sockets = sockets.filter(s => s !== socket)
+            })
+            socket.on('SEND_MESSAGE', ({ email, message }) => {
+
             })
             socket.on('AUTHORIZE', async (payload) => {
                 console.log('on AUTHORIZE')
