@@ -2,7 +2,7 @@
 const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
 const authenticationIsRequiredAPI = require('../../middlewares/authenticationIsRequired')
-
+const EventEmitter = require('../../general/EventEmitter')
 const hashPassword = async password => await bcrypt.hash(password, 10)
 
 const router  = require('express').Router()
@@ -48,7 +48,9 @@ router.post('/register', async (req, res) => {
     }
 
     await insertIntoCollection('users', userToSave)
+    const user = await findOneInCollection('users', {email})
 
+    EventEmitter.emit(EventEmitter.TYPES.USER_REGISTERED, user)
 
     return res.status(200).json(jwt.sign({
         email
@@ -87,6 +89,8 @@ router.post('/login', async (req, res) => {
             token
         })
     }
+
+
 
     return res.status(200).json(jwt.sign({
         email

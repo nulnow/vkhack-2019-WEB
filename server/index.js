@@ -131,6 +131,7 @@ getClient()
             sockets.filter(s => s.isAdmin)
                 .forEach(s => {
                     s.emit(EventEmitter.TYPES.USER_REGISTERED, user)
+                    s.emit(EventEmitter.TYPES.USER_NOTIFY, `Зарегистрирован новый пользователь: ${user.firstName} ${user.laser}`)
                 })
         })
 
@@ -158,10 +159,11 @@ getClient()
                     console.log('failed to validate token')
                     return
                 }
-                const user = db.findOneInCollection('users', {email: parsedToken.email})
+                const user = await db.findOneInCollection('users', {email: parsedToken.email})
+                console.log({user})
                 socket.email = parsedToken.email
                 socket.isAdmin = !!user.isAdmin
-                console.log('!AUTHORIZED!', + ' ' + socket.email + ' isAdmin ' + socket.isAdmin)
+                console.log('!AUTHORIZED!' + ' ' + socket.email + ' isAdmin ' + socket.isAdmin)
 
             })
         })

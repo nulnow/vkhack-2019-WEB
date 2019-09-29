@@ -6,6 +6,8 @@ import { connect } from 'react-redux'
 import { preloadUsers } from '../store/reducers/usersReducer';
 import AdminUsers from '../components/AdminPanel/AdminUsers'
 import AdminEvents from '../components/AdminPanel/AdminEvents'
+import Notification from '../components/Notification'
+import NotificationsContainer from './NotificationsContainer'
 
 const mapStateToProps = state => ({
     ...state.users,
@@ -25,9 +27,8 @@ export default connect(mapStateToProps)(({
         dispatch(preloadUsers())
     }, [])
 
-    let defaultAvatar = 'https://www.allafricanhits.com/wp-content/uploads/2017/11/user-default-avatar.png'
-
     return <div>
+        <NotificationsContainer />
         <div className="left-nav left-nav--shown" >
             <div className="top-left-nav-wrapper">
                 <div className="museum-details">
