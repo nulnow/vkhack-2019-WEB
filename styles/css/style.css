@@ -230,6 +230,30 @@ section {
 
 }
 
+.notification-body {
+    display: block;
+    padding: 38px;
+    border-radius: 18px;
+    margin: 38px 0px 0px 38px;
+    bottom: 0;
+    transition: all .25s ease-in-out;
+    animation: loadevent ease-in-out .55s;
+}
+
+.notification-body p {
+    font-size: 14px;
+    opacity: .7;
+    margin-top: 14px;
+}
+
+.close-notification {
+    background-color: transparent;
+    color: white;
+    border: none;
+    outline: 0;
+    cursor: pointer;
+}
+
 .event__card {
     position: relative;
     overflow: hidden;
@@ -699,9 +723,20 @@ input[type="range"] {
 
 input[type="range"]::-moz-range-progress {
     background-color: #5F3EFF;
+    height: 40px;
 }
-input[type="range"]::-moz-range-track {
+
+input[type="range"]::-moz-range-thumb {
     background-color: #5F3EFF;
+    border: none;
+    outline: 0;
+    border-radius: 50%;
+    box-shadow: -3px 0px 0px #5F3EFF;
+    height: 25px;
+}
+
+input[type="range"]::-moz-range-track {
+    background-color: #F4F3F5;
 }
 input[type="range"]::-ms-fill-lower {
     background-color: #F4F3F5;
@@ -790,6 +825,55 @@ input[type="range"]::-ms-fill-upper {
 
 .info__museum:hover {
     box-shadow: 0px 5px 5px 0px rgba(95, 62, 255, .29);
+}
+
+.event__header {
+    position: absolute;
+    z-index: 1;
+    height: 174px;
+    padding: 38px;
+}
+
+.event__header h3 {
+    //color: black;
+    font-size: 24px;
+}
+
+.event__header .date {
+    font-size: 18px;
+    position: absolute;
+    opacity: .75;
+    top: auto;
+    bottom: 28px;
+}
+
+.event__detail {
+    position: relative;
+    display: block;
+    width: 100%;
+    height: fit-content;
+    border-radius: 18px;
+    border-top-right-radius: 0px;
+    border-top-left-radius: 0px;
+    margin: 0px 0px 0px 0px;
+    top: -30px;
+    padding: 38px;
+    background-color: white;
+}
+
+.event__detail .btn {
+}
+
+.event__preview {
+    position: relative;
+    height: 200px;
+    width: 100%;
+    border-radius: 18px;
+}
+
+.event__detail .description {
+    top: 0;
+    margin-bottom: 25px;
 }
 
 .profile__events {
