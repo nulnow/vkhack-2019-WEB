@@ -30,7 +30,7 @@ export default ({
                     isAccepted
                         ? 'Одобрена'
                         : (
-                            isRequested ? 'Заявка подана' : 'Заявка на рассмотрении'
+                            isRequested ? 'Заявка подана' : 'Подать заявку'
                         )
                 }
             </button>

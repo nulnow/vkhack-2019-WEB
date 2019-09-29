@@ -106,7 +106,7 @@ router.get('/make-request/:objectId', authenticationIsRequiredAPI, async (req, r
     if (!user.requested_events_ids) {
         user.requested_events_ids = [ objectId ]
     } else {
-        if (user.requested_events_ids.indexOf(objectId) !== -1) {
+        if (user.requested_events_ids.indexOf(objectId) === -1) {
             user.requested_events_ids = [ ...user.requested_events_ids, objectId ]
         }
     }

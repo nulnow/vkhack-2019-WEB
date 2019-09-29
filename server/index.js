@@ -141,11 +141,8 @@ getClient()
             socket.on('SEND_MESSAGE', ({ email, message }) => {
 
             })
-            socket.on('AUTHORIZE', async (payload) => {
+            socket.on('AUTHORIZE', async (token) => {
                 console.log('on AUTHORIZE')
-                const {
-                    token,
-                } = payload
 
                 let parsedToken
                 try {
