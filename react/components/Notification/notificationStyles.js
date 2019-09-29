@@ -2,8 +2,9 @@
 export const notificationComponentStyles = {
     position: 'relative',
     backgroundColor: '#2C2C2C',
+    zIndex: 10,
     color: 'white',
-    borderRadius: 16,
+    borderRadius: 18,
     width: '350px',
     height: 'fit-content',
     display: 'flex',
