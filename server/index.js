@@ -131,7 +131,7 @@ getClient()
             sockets.filter(s => s.isAdmin)
                 .forEach(s => {
                     s.emit(EventEmitter.TYPES.USER_REGISTERED, user)
-                    s.emit(EventEmitter.TYPES.USER_NOTIFY, `Зарегистрирован новый пользователь: ${user.firstName} ${user.laser}`)
+                    s.emit(EventEmitter.TYPES.USER_NOTIFY, `Зарегистрирован новый пользователь: ${user.firstName} ${user.lastName}`)
                 })
         })
 
