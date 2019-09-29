@@ -135,7 +135,9 @@ getClient()
                 })
         })
 
-
+        EventEmitter.subscribe('REQUEST_ACCEPTED', ({email, eventTitle}) => {
+            EventEmitter.emit(EventEmitter.TYPES.USER_NOTIFY, ({ email, message: eventTitle }))
+        })
 
         io.on('connection', socket => {
             console.log('!CONNECTED!')

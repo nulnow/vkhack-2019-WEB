@@ -166,9 +166,10 @@ router.post('/admin/accept-user', async (req, res) => {
             ...(user.accepted_requested_events_ids || []),
             eventId,
         ]
-        // TODO emit
+
         await updateOneInCollectionByObjectId('users', user._id, user)
         res.status(200).json({message: 'ok'})
+        EventEmitter.emit('REQUEST_ACCEPTED', {email: user.email, eventTitle: event.title})
     }
 })
 

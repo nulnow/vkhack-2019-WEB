@@ -73,7 +73,7 @@ export default withRouter(connect(mapStateToProps)(({
                 case 'events':
                     return <AdminEvents {...events} />
                 case 'requests':
-                    return <AdminRequests {...{requests, isLoading: events.eventsAreLoading}} />
+                    return <AdminRequests {...{requests, isLoading: events.eventsAreLoading, dispatch}} />
                 default: return null
             }
         })()}
